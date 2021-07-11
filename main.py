@@ -28,6 +28,14 @@ with open(file_path, 'rb') as f:
         pixel_size_x = 0.008502
         pixel_size_y = 0.003071
         pixel_size_z = 1
+    elif 'HD Angio Retina' in file_name:
+        frames_per_data_group = 400
+        total_data_groups = 1
+        oct_window_height = 640
+        xy_scan_length = 400
+        pixel_size_x = 0.015000
+        pixel_size_y = 0.003071
+        pixel_size_z = 0.015000
     elif 'PachymetryWide' in file_name:
         frames_per_data_group = 16
         total_data_groups = 1
