@@ -19,4 +19,7 @@ with open(file_path, 'rb') as f:
 
     dir_name = Path(file_path).parent
     file_name = Path(file_path).stem
-    tifffile.imwrite(dir_name / (file_name + '.tif'), volume, imagej=True, photometric='minisblack', resolution=(1./0.007797, 1./0.003071), metadata={'spacing': 1, 'unit': 'mm', 'axes': 'ZYX'})
+    pixel_size_x = 0.007797
+    pixel_size_y = 0.003071
+    pixel_size_z = 1
+    tifffile.imwrite(dir_name / (file_name + '.tif'), volume, imagej=True, photometric='minisblack', resolution=(1. / pixel_size_x, 1. / pixel_size_y), metadata={'spacing': pixel_size_z, 'unit': 'mm', 'axes': 'ZYX'})
