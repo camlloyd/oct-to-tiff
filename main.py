@@ -73,4 +73,4 @@ with open(file_path, 'rb') as f:
     volume = np.rot90(volume, k=1, axes=(1, 2))
 
     dir_name = Path(file_path).parent
-    tifffile.imwrite(dir_name / (file_name + '.tif'), volume, imagej=True, photometric='minisblack', resolution=(1. / pixel_size_x, 1. / pixel_size_y), metadata={'spacing': pixel_size_z, 'unit': 'mm', 'axes': 'ZYX'})
+    tifffile.imwrite(dir_name / (file_name + '.ome.tif'), volume, photometric='minisblack', metadata={'axes': 'ZYX', 'PhysicalSizeX': pixel_size_x, 'PhysicalSizeXUnit': 'mm', 'PhysicalSizeY': pixel_size_y, 'PhysicalSizeYUnit': 'mm', 'PhysicalSizeZ': pixel_size_z, 'PhysicalSizeZUnit': 'mm'})
