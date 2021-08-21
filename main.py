@@ -19,7 +19,7 @@ with open(file_path, 'rb') as f:
         xy_scan_length = 513
         pixel_size_x = 0.007797
         pixel_size_y = 0.003071
-        pixel_size_z = 1
+        pixel_size_z = 0.040000
     elif 'Cornea Cross Line' in file_name:
         volume = np.frombuffer(f.read(), dtype=single)
         frames_per_data_group = 2
