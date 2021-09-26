@@ -26,6 +26,15 @@ def convert_oct_file():
             pixel_size_x = 0.007797
             pixel_size_y = 0.003071
             pixel_size_z = 0.040000
+        if '3D Disc' in file_name:
+            volume = np.frombuffer(f.read(), dtype=single)
+            frames_per_data_group = 106
+            total_data_groups = 1
+            oct_window_height = 768
+            xy_scan_length = 513
+            pixel_size_x = 0.011696
+            pixel_size_y = 0.003071
+            pixel_size_z = 0.060000
         elif '3D Retina' in file_name:
             volume = np.frombuffer(f.read(), dtype=single)
             frames_per_data_group = 144
