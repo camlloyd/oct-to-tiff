@@ -44,6 +44,15 @@ def convert_oct_file():
             pixel_size_x = 0.009804
             pixel_size_y = 0.003071
             pixel_size_z = 1
+        elif 'Enhanced HD Line' in file_name:
+            volume = np.frombuffer(f.read(), dtype=single)
+            frames_per_data_group = 1
+            total_data_groups = 2
+            oct_window_height = 960
+            xy_scan_length = 998
+            pixel_size_x = 0.012024
+            pixel_size_y = 0.003071
+            pixel_size_z = 1
         elif 'Grid' in file_name:
             volume = np.frombuffer(f.read(), dtype=single)
             frames_per_data_group = 10
