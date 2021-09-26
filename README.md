@@ -1,6 +1,6 @@
 # oct-to-tiff
 
-Convert optical coherence tomography (.OCT) files to TIFF.
+Convert optical coherence tomography files to OME-TIFF.
 
 ## Supported scan patterns
 
