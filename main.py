@@ -80,6 +80,15 @@ def convert_oct_file():
             pixel_size_x = 0.012024
             pixel_size_y = 0.003071
             pixel_size_z = 1
+        elif 'GCC' in file_name:
+            volume = np.frombuffer(f.read(), dtype=single)
+            frames_per_data_group = 16
+            total_data_groups = 1
+            oct_window_height = 640
+            xy_scan_length = 933
+            pixel_size_x = 0.007503
+            pixel_size_y = 0.003071
+            pixel_size_z = 1
         elif 'Grid' in file_name:
             volume = np.frombuffer(f.read(), dtype=single)
             frames_per_data_group = 10
