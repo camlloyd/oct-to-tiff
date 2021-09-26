@@ -80,6 +80,15 @@ def convert_oct_file():
             pixel_size_x = 0.005859
             pixel_size_y = 0.003071
             pixel_size_z = 1
+        elif 'Raster' in file_name:
+            volume = np.frombuffer(f.read(), dtype=single)
+            frames_per_data_group = 21
+            total_data_groups = 1
+            oct_window_height = 768
+            xy_scan_length = 1020
+            pixel_size_x = 0.011765
+            pixel_size_y = 0.003071
+            pixel_size_z = 1
         elif Path(file_name).suffix == '':
             volume = np.frombuffer(f.read(), dtype=uint16)
             if len(volume) == 25600000:
