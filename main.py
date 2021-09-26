@@ -26,6 +26,15 @@ def convert_oct_file():
             pixel_size_x = 0.007797
             pixel_size_y = 0.003071
             pixel_size_z = 0.040000
+        elif '3D Retina' in file_name:
+            volume = np.frombuffer(f.read(), dtype=single)
+            frames_per_data_group = 144
+            total_data_groups = 1
+            oct_window_height = 640
+            xy_scan_length = 385
+            pixel_size_x = 0.018182
+            pixel_size_y = 0.003071
+            pixel_size_z = 0.050000
         elif 'Cornea Cross Line' in file_name:
             volume = np.frombuffer(f.read(), dtype=single)
             frames_per_data_group = 2
