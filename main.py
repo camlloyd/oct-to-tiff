@@ -107,6 +107,15 @@ def convert_oct_file():
             pixel_size_x = 0.015000
             pixel_size_y = 0.003071
             pixel_size_z = 0.015000
+        elif 'Radial Lines' in file_name:
+            volume = np.frombuffer(f.read(), dtype=single)
+            frames_per_data_group = 18
+            total_data_groups = 1
+            oct_window_height = 640
+            xy_scan_length = 1024
+            pixel_size_x = 0.009766
+            pixel_size_y = 0.003071
+            pixel_size_z = 1
         elif 'Line' in file_name:
             volume = np.frombuffer(f.read(), dtype=single)
             frames_per_data_group = 1
