@@ -44,6 +44,15 @@ def convert_oct_file():
             pixel_size_x = 0.009804
             pixel_size_y = 0.003071
             pixel_size_z = 1
+        elif 'Grid' in file_name:
+            volume = np.frombuffer(f.read(), dtype=single)
+            frames_per_data_group = 10
+            total_data_groups = 1
+            oct_window_height = 640
+            xy_scan_length = 1020
+            pixel_size_x = 0.005882
+            pixel_size_y = 0.003071
+            pixel_size_z = 1
         elif 'HD Angio Retina' in file_name:
             volume = np.frombuffer(f.read(), dtype=single)
             frames_per_data_group = 400
