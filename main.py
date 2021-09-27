@@ -1,6 +1,6 @@
 import argparse
 import numpy as np
-import tifffile as tifffile
+import tifffile
 from numpy import single, uint16
 from pathlib import Path
 
