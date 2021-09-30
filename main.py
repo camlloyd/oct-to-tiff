@@ -62,6 +62,15 @@ def convert_oct_file():
             pixel_size_x = 0.008502
             pixel_size_y = 0.003071
             pixel_size_z = 1
+        elif 'Cornea Line' in file_name:
+            volume = np.frombuffer(f.read(), dtype=single)
+            frames_per_data_group = 1
+            total_data_groups = 2
+            oct_window_height = 640
+            xy_scan_length = 1020
+            pixel_size_x = 0.007843
+            pixel_size_y = 0.003071
+            pixel_size_z = 1
         elif 'Cross Line' in file_name:
             volume = np.frombuffer(f.read(), dtype=single)
             frames_per_data_group = 2
