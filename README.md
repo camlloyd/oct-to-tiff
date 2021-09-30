@@ -10,6 +10,7 @@ Due to limited test data, only the following scan patterns are currently support
 - 3D Retina
 - Angle
 - Cornea Cross Line
+- Cornea Line
 - Cross Line
 - Enhanced HD Line
 - GCC
