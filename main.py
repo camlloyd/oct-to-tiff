@@ -44,6 +44,15 @@ def convert_oct_file():
             pixel_size_x = 0.018182
             pixel_size_y = 0.003071
             pixel_size_z = 0.050000
+        elif '3D Widefield MCT' in file_name:
+            volume = np.frombuffer(f.read(), dtype=single)
+            frames_per_data_group = 320
+            total_data_groups = 1
+            oct_window_height = 768
+            xy_scan_length = 320
+            pixel_size_x = 0.003075
+            pixel_size_y = 0.003071
+            pixel_size_z = 0.028125
         elif '3D Widefield' in file_name:
             volume = np.frombuffer(f.read(), dtype=single)
             frames_per_data_group = 323
