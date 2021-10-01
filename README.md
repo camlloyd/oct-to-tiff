@@ -8,6 +8,8 @@ Due to limited test data, only the following scan patterns are currently support
 - 3D Cornea
 - 3D Disc
 - 3D Retina
+- 3D Widefield
+- 3D Widefield MCT
 - Angle
 - Cornea Cross Line
 - Cornea Line
