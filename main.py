@@ -135,6 +135,18 @@ def convert_oct_file():
             pixel_size_x = 0.015000
             pixel_size_y = 0.003071
             pixel_size_z = 0.015000
+        elif 'Angio Retina' in file_name:
+            volume = np.frombuffer(f.read(), dtype=single)
+            frames_per_data_group = 304
+            total_data_groups = 1
+            oct_window_height = 640
+            xy_scan_length = 304
+            pixel_size_x = 0.019737
+            pixel_size_y = 0.003071
+            pixel_size_z = 0.019737
+            if args.size:
+                pixel_size_x = args.size / xy_scan_length
+                pixel_size_z = args.size / frames_per_data_group
         elif 'Radial Lines' in file_name:
             volume = np.frombuffer(f.read(), dtype=single)
             frames_per_data_group = 18
