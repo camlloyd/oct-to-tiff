@@ -138,6 +138,18 @@ def convert_oct_file():
             if args.size:
                 pixel_size_x = args.size / xy_scan_length
                 pixel_size_z = args.size / frames_per_data_group
+        elif 'Angio Disc' in file_name:
+            volume = np.frombuffer(f.read(), dtype=single)
+            frames_per_data_group = 304
+            total_data_groups = 1
+            oct_window_height = 640
+            xy_scan_length = 304
+            pixel_size_x = 0.009868
+            pixel_size_y = 0.003071
+            pixel_size_z = 0.009868
+            if args.size:
+                pixel_size_x = args.size / xy_scan_length
+                pixel_size_z = args.size / frames_per_data_group
         elif 'HD Angio Retina' in file_name:
             volume = np.frombuffer(f.read(), dtype=single)
             frames_per_data_group = 400
