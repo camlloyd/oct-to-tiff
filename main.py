@@ -8,6 +8,7 @@ parser = argparse.ArgumentParser(description='Convert optical coherence tomograp
 parser.add_argument('input', type=str, help='OCT file to convert')
 parser.add_argument('--overwrite', default=False, action='store_true', help='overwrite output file if it exists')
 parser.add_argument('--size', type=float, help='scan size in mm^2')
+parser.add_argument('--angio', default=False, action='store_true', help='convert extracted OCTA data')
 args = parser.parse_args()
 
 file_path = args.input
@@ -207,24 +208,19 @@ def convert_oct_file():
             pixel_size_x = 0.011765
             pixel_size_y = 0.003071
             pixel_size_z = 1
-        elif Path(file_name).suffix == '':
+        elif args.angio and args.size:
             volume = np.frombuffer(f.read(), dtype=uint16)
             if len(volume) == 25600000:
                 frames_per_data_group = 400
-                total_data_groups = 1
-                oct_window_height = 160
                 xy_scan_length = 400
-                pixel_size_x = 0.015000
-                pixel_size_y = 0.012283
-                pixel_size_z = 0.015000
             elif len(volume) == 14786560:
                 frames_per_data_group = 304
-                total_data_groups = 1
-                oct_window_height = 160
                 xy_scan_length = 304
-                pixel_size_x = 0.015000
-                pixel_size_y = 0.003071
-                pixel_size_z = 0.015000
+            total_data_groups = 1
+            oct_window_height = 160
+            pixel_size_x = args.size / xy_scan_length
+            pixel_size_y = 0.012283
+            pixel_size_z = args.size / frames_per_data_group
 
         # Reshape array into 3 dimensions.
         volume = np.reshape(volume, (frames_per_data_group * total_data_groups, xy_scan_length, oct_window_height))
