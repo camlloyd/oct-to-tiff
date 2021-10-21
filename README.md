@@ -1,6 +1,6 @@
 # oct-to-tiff
 
-Convert optical coherence tomography files to OME-TIFF.
+A command line tool for converting optical coherence tomography angiography (OCTA) data.
 
 ## Supported scan patterns
 
@@ -10,6 +10,8 @@ Due to limited test data, only the following scan patterns are currently support
 - 3D Retina
 - 3D Widefield
 - 3D Widefield MCT
+- Angio Disc
+- Angio Retina
 - Angle
 - Cornea Cross Line
 - Cornea Line
@@ -17,6 +19,7 @@ Due to limited test data, only the following scan patterns are currently support
 - Enhanced HD Line
 - GCC
 - Grid
+- HD Angio Disc
 - HD Angio Retina
 - Line
 - Pachymetry Wide
