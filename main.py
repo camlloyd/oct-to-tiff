@@ -4,7 +4,7 @@ import tifffile
 from numpy import single, uint16
 from pathlib import Path
 
-parser = argparse.ArgumentParser(description='Convert optical coherence tomography files to OME-TIFF.')
+parser = argparse.ArgumentParser(description='Convert optical coherence tomography angiography (OCTA) data.')
 parser.add_argument('input', type=str, help='OCT file to convert')
 parser.add_argument('--overwrite', default=False, action='store_true', help='overwrite output file if it exists')
 parser.add_argument('--size', type=float, help='scan size in mm^2')
