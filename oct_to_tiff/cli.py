@@ -30,7 +30,7 @@ def main():
                 pixel_size_x = 0.007797
                 pixel_size_y = 0.003071
                 pixel_size_z = 0.040000
-            if '3D Disc' in file_name:
+            elif '3D Disc' in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 106
                 total_data_groups = 1
