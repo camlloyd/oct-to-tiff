@@ -11,7 +11,7 @@ def main():
     parser.add_argument('--overwrite', default=False, action='store_true', help='overwrite output file if it exists')
     parser.add_argument('--size', type=float, help='scan size in mm^2')
     parser.add_argument('--angio', default=False, action='store_true', help='convert extracted OCTA data')
-    parser.add_argument('--version', action='version', version='%(prog)s 0.1.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 0.1.1')
     args = parser.parse_args()
 
     file_path = args.input
@@ -30,7 +30,7 @@ def main():
                 pixel_size_x = 0.007797
                 pixel_size_y = 0.003071
                 pixel_size_z = 0.040000
-            if '3D Disc' in file_name:
+            elif '3D Disc' in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 106
                 total_data_groups = 1
