@@ -11,7 +11,7 @@ def main():
     parser.add_argument('--overwrite', default=False, action='store_true', help='overwrite output file if it exists')
     parser.add_argument('--size', type=float, help='scan size in mm^2')
     parser.add_argument('--angio', default=False, action='store_true', help='convert extracted OCTA data')
-    parser.add_argument('--version', action='version', version='%(prog)s 0.1.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 0.1.1')
     args = parser.parse_args()
 
     file_path = args.input
