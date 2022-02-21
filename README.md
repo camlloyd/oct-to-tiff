@@ -14,7 +14,7 @@ For more options, run `oct-to-tiff --help`.
     
 ## Supported scan patterns
 
-This tool has been developed for use with data from the Optovue RTVue XR Avanti System.
+This tool has been developed by reverse engineering data from the Optovue RTVue XR Avanti System.
 
 Due to limited test data, only the following scan patterns are currently supported:
 
