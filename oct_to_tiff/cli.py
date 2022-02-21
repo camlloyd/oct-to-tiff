@@ -11,6 +11,7 @@ def main():
     parser.add_argument('--overwrite', default=False, action='store_true', help='overwrite output file if it exists')
     parser.add_argument('--size', type=float, help='scan size in mm^2')
     parser.add_argument('--angio', default=False, action='store_true', help='convert extracted OCTA data')
+    parser.add_argument('--en-face', default=False, action='store_true', help='convert extracted en face image')
     parser.add_argument('--version', action='version', version='%(prog)s 0.1.1')
     args = parser.parse_args()
 
@@ -223,12 +224,26 @@ def main():
                 pixel_size_x = args.size / xy_scan_length
                 pixel_size_y = 0.012283
                 pixel_size_z = args.size / frames_per_data_group
+            elif args.en_face and args.size:
+                volume = np.frombuffer(f.read(), dtype=single)
+                if len(volume) == 160000:
+                    oct_window_height = 400
+                    xy_scan_length = 400
+                elif len(volume) == 92416:
+                    oct_window_height = 304
+                    xy_scan_length = 304
+                frames_per_data_group = 1
+                total_data_groups = 1
+                pixel_size_x = args.size / oct_window_height
+                pixel_size_y = args.size / xy_scan_length
+                pixel_size_z = 1
 
             # Reshape array into 3 dimensions.
             volume = np.reshape(volume, (frames_per_data_group * total_data_groups, xy_scan_length, oct_window_height))
 
             # Rotate array 90 degrees left (anti-clockwise) about the z-axis.
-            volume = np.rot90(volume, k=1, axes=(1, 2))
+            if not args.en_face:
+                volume = np.rot90(volume, k=1, axes=(1, 2))
 
             tifffile.imwrite(output_path, volume, photometric='minisblack',
                              metadata={'axes': 'ZYX', 'PhysicalSizeX': pixel_size_x, 'PhysicalSizeXUnit': 'mm',
