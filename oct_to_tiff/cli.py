@@ -12,6 +12,7 @@ def main():
     parser.add_argument('--size', type=float, help='scan size in mm^2')
     parser.add_argument('--angio', default=False, action='store_true', help='convert extracted OCTA data')
     parser.add_argument('--en-face', default=False, action='store_true', help='convert extracted en face image')
+    parser.add_argument('--seg-curve', default=False, action='store_true', help='convert extracted segmentation data')
     parser.add_argument('--version', action='version', version='%(prog)s 0.1.1')
     args = parser.parse_args()
 
@@ -237,12 +238,25 @@ def main():
                 pixel_size_x = args.size / oct_window_height
                 pixel_size_y = args.size / xy_scan_length
                 pixel_size_z = 1
+            elif args.seg_curve:
+                volume = np.frombuffer(f.read(), dtype=single)
+                if len(volume) == 1280000 or len(volume) == 1120000:
+                    frames_per_data_group = 400
+                    oct_window_height = 400
+                elif len(volume) == 739328 or len(volume) == 646912:
+                    frames_per_data_group = 304
+                    oct_window_height = 304
+                total_data_groups = 1
+                xy_scan_length = len(volume) // (frames_per_data_group * oct_window_height)
+                pixel_size_x = 1
+                pixel_size_y = 1
+                pixel_size_z = 1
 
             # Reshape array into 3 dimensions.
             volume = np.reshape(volume, (frames_per_data_group * total_data_groups, xy_scan_length, oct_window_height))
 
             # Rotate array 90 degrees left (anti-clockwise) about the z-axis.
-            if not args.en_face:
+            if not args.en_face and not args.seg_curve:
                 volume = np.rot90(volume, k=1, axes=(1, 2))
 
             tifffile.imwrite(output_path, volume, photometric='minisblack',
