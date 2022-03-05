@@ -227,14 +227,10 @@ def main():
                 pixel_size_z = args.size / frames_per_data_group
             elif args.en_face and args.size:
                 volume = np.frombuffer(f.read(), dtype=single)
-                if len(volume) == 160000:
-                    oct_window_height = 400
-                    xy_scan_length = 400
-                elif len(volume) == 92416:
-                    oct_window_height = 304
-                    xy_scan_length = 304
                 frames_per_data_group = 1
                 total_data_groups = 1
+                oct_window_height = int(len(volume) ** 0.5)
+                xy_scan_length = int(len(volume) ** 0.5)
                 pixel_size_x = args.size / oct_window_height
                 pixel_size_y = args.size / xy_scan_length
                 pixel_size_z = 1
