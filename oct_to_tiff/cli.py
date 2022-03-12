@@ -214,14 +214,10 @@ def main():
                 pixel_size_z = 1
             elif args.angio and args.size:
                 volume = np.frombuffer(f.read(), dtype=uint16)
-                if len(volume) == 25600000:
-                    frames_per_data_group = 400
-                    xy_scan_length = 400
-                elif len(volume) == 14786560:
-                    frames_per_data_group = 304
-                    xy_scan_length = 304
-                total_data_groups = 1
                 oct_window_height = 160
+                frames_per_data_group = int((len(volume) // oct_window_height) ** 0.5)
+                total_data_groups = 1
+                xy_scan_length = int((len(volume) // oct_window_height) ** 0.5)
                 pixel_size_x = args.size / xy_scan_length
                 pixel_size_y = 0.012283
                 pixel_size_z = args.size / frames_per_data_group
