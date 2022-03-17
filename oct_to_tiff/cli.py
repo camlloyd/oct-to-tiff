@@ -7,8 +7,8 @@ from pathlib import Path
 
 def main():
     parser = argparse.ArgumentParser(description='Convert optical coherence tomography angiography (OCTA) data.')
-    parser.add_argument('input', type=str, help='OCT file to convert')
-    parser.add_argument('--output', type=str, help='specify a custom output directory')
+    parser.add_argument('input', type=Path, help='OCT file to convert')
+    parser.add_argument('--output', type=Path, help='specify a custom output directory')
     parser.add_argument('--overwrite', default=False, action='store_true', help='overwrite output file if it exists')
     parser.add_argument('--size', type=float, help='scan size in mm')
     parser.add_argument('--angio', default=False, action='store_true', help='convert extracted OCTA data')
@@ -18,12 +18,12 @@ def main():
     args = parser.parse_args()
 
     file_path = args.input
-    file_name = Path(file_path).stem
+    file_name = file_path.stem
     if args.output:
-        dir_name = Path(args.output)
+        dir_name = args.output
         dir_name.mkdir(parents=True, exist_ok=True)
     else:
-        dir_name = Path(file_path).parent
+        dir_name = file_path.parent
     output_path = dir_name / (file_name + '.ome.tif')
 
     def convert_oct_file():
