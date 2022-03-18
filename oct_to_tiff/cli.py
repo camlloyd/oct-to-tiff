@@ -1,8 +1,9 @@
 import argparse
+from pathlib import Path
+
 import numpy as np
 import tifffile
 from numpy import single, uint16
-from pathlib import Path
 
 
 def main():
