@@ -1,5 +1,7 @@
 # oct-to-tiff
 
+[![DOI](https://zenodo.org/badge/382486199.svg)](https://zenodo.org/badge/latestdoi/382486199)
+
 A command line tool for converting optical coherence tomography angiography (OCTA) data.
 
 ## Installation
