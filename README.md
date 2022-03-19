@@ -17,7 +17,7 @@ By default, the output file will be written with the same name as the input file
         ├── image.OCT
         └── image.ome.tif
 
-To specify a custom output directory, see [Optional arguments](https://github.com/camlloyd/oct-to-tiff/blob/main/README.md#optional-arguments).
+To specify a custom output directory, see [Optional arguments](https://github.com/camlloyd/oct-to-tiff#optional-arguments).
 
 ## Supported scan patterns
 
@@ -57,7 +57,7 @@ To view these options at any time, run `oct-to-tiff --help`.
 #### `--output OUTPUT`
 **Description**: specify a custom output directory. 
 
-If the specified path to the output directory does not exist, a new directory (and any parent directories) will be created.
+If the path to the output directory does not exist, a new directory (and parent directories) will be created.
 
 **Usage**: 
     
