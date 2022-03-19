@@ -7,15 +7,37 @@ from numpy import single, uint16
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Convert optical coherence tomography angiography (OCTA) data.')
-    parser.add_argument('input', type=Path, help='OCT file to convert')
-    parser.add_argument('--output', type=Path, help='specify a custom output directory')
-    parser.add_argument('--overwrite', default=False, action='store_true', help='overwrite output file if it exists')
-    parser.add_argument('--size', type=float, help='scan size in mm')
-    parser.add_argument('--angio', default=False, action='store_true', help='convert extracted OCTA data')
-    parser.add_argument('--en-face', default=False, action='store_true', help='convert extracted en face image')
-    parser.add_argument('--seg-curve', default=False, action='store_true', help='convert extracted segmentation data')
-    parser.add_argument('--version', action='version', version='%(prog)s 0.1.1')
+    parser = argparse.ArgumentParser(
+        description="Convert optical coherence tomography angiography (OCTA) data."
+    )
+    parser.add_argument("input", type=Path, help="OCT file to convert")
+    parser.add_argument("--output", type=Path, help="specify a custom output directory")
+    parser.add_argument(
+        "--overwrite",
+        default=False,
+        action="store_true",
+        help="overwrite output file if it exists",
+    )
+    parser.add_argument("--size", type=float, help="scan size in mm")
+    parser.add_argument(
+        "--angio",
+        default=False,
+        action="store_true",
+        help="convert extracted OCTA data",
+    )
+    parser.add_argument(
+        "--en-face",
+        default=False,
+        action="store_true",
+        help="convert extracted en face image",
+    )
+    parser.add_argument(
+        "--seg-curve",
+        default=False,
+        action="store_true",
+        help="convert extracted segmentation data",
+    )
+    parser.add_argument("--version", action="version", version="%(prog)s 0.1.1")
     args = parser.parse_args()
 
     file_path = args.input
@@ -25,11 +47,11 @@ def main():
         dir_name.mkdir(parents=True, exist_ok=True)
     else:
         dir_name = file_path.parent
-    output_path = dir_name / (file_name + '.ome.tif')
+    output_path = dir_name / (file_name + ".ome.tif")
 
     def convert_oct_file():
-        with open(file_path, 'rb') as f:
-            if '3D Cornea' in file_name:
+        with open(file_path, "rb") as f:
+            if "3D Cornea" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 106
                 total_data_groups = 1
@@ -38,7 +60,7 @@ def main():
                 pixel_size_x = 0.007797
                 pixel_size_y = 0.003071
                 pixel_size_z = 0.040000
-            elif '3D Disc' in file_name:
+            elif "3D Disc" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 106
                 total_data_groups = 1
@@ -47,7 +69,7 @@ def main():
                 pixel_size_x = 0.011696
                 pixel_size_y = 0.003071
                 pixel_size_z = 0.060000
-            elif '3D Retina' in file_name:
+            elif "3D Retina" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 144
                 total_data_groups = 1
@@ -56,7 +78,7 @@ def main():
                 pixel_size_x = 0.018182
                 pixel_size_y = 0.003071
                 pixel_size_z = 0.050000
-            elif '3D Widefield MCT' in file_name:
+            elif "3D Widefield MCT" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 320
                 total_data_groups = 1
@@ -65,7 +87,7 @@ def main():
                 pixel_size_x = 0.003075
                 pixel_size_y = 0.003071
                 pixel_size_z = 0.028125
-            elif '3D Widefield' in file_name:
+            elif "3D Widefield" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 323
                 total_data_groups = 1
@@ -74,7 +96,7 @@ def main():
                 pixel_size_x = 0.003075
                 pixel_size_y = 0.003071
                 pixel_size_z = 0.028125
-            elif 'Angle' in file_name:
+            elif "Angle" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 1
                 total_data_groups = 2
@@ -83,7 +105,7 @@ def main():
                 pixel_size_x = 0.002941
                 pixel_size_y = 0.003071
                 pixel_size_z = 1
-            elif 'Cornea Cross Line' in file_name:
+            elif "Cornea Cross Line" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 2
                 total_data_groups = 2
@@ -92,7 +114,7 @@ def main():
                 pixel_size_x = 0.008502
                 pixel_size_y = 0.003071
                 pixel_size_z = 1
-            elif 'Cornea Line' in file_name:
+            elif "Cornea Line" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 1
                 total_data_groups = 2
@@ -101,7 +123,7 @@ def main():
                 pixel_size_x = 0.007843
                 pixel_size_y = 0.003071
                 pixel_size_z = 1
-            elif 'Cross Line' in file_name:
+            elif "Cross Line" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 2
                 total_data_groups = 2
@@ -110,7 +132,7 @@ def main():
                 pixel_size_x = 0.009804
                 pixel_size_y = 0.003071
                 pixel_size_z = 1
-            elif 'Enhanced HD Line' in file_name:
+            elif "Enhanced HD Line" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 1
                 total_data_groups = 2
@@ -119,7 +141,7 @@ def main():
                 pixel_size_x = 0.012024
                 pixel_size_y = 0.003071
                 pixel_size_z = 1
-            elif 'GCC' in file_name:
+            elif "GCC" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 16
                 total_data_groups = 1
@@ -128,7 +150,7 @@ def main():
                 pixel_size_x = 0.007503
                 pixel_size_y = 0.003071
                 pixel_size_z = 1
-            elif 'Grid' in file_name:
+            elif "Grid" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 10
                 total_data_groups = 1
@@ -137,7 +159,7 @@ def main():
                 pixel_size_x = 0.005882
                 pixel_size_y = 0.003071
                 pixel_size_z = 1
-            elif 'HD Angio Disc' in file_name:
+            elif "HD Angio Disc" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 400
                 total_data_groups = 1
@@ -149,7 +171,7 @@ def main():
                 if args.size:
                     pixel_size_x = args.size / xy_scan_length
                     pixel_size_z = args.size / frames_per_data_group
-            elif 'Angio Disc' in file_name:
+            elif "Angio Disc" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 304
                 total_data_groups = 1
@@ -161,7 +183,7 @@ def main():
                 if args.size:
                     pixel_size_x = args.size / xy_scan_length
                     pixel_size_z = args.size / frames_per_data_group
-            elif 'HD Angio Retina' in file_name:
+            elif "HD Angio Retina" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 400
                 total_data_groups = 1
@@ -170,7 +192,7 @@ def main():
                 pixel_size_x = 0.015000
                 pixel_size_y = 0.003071
                 pixel_size_z = 0.015000
-            elif 'Angio Retina' in file_name:
+            elif "Angio Retina" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 304
                 total_data_groups = 1
@@ -182,7 +204,7 @@ def main():
                 if args.size:
                     pixel_size_x = args.size / xy_scan_length
                     pixel_size_z = args.size / frames_per_data_group
-            elif 'Radial Lines' in file_name:
+            elif "Radial Lines" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 18
                 total_data_groups = 1
@@ -191,7 +213,7 @@ def main():
                 pixel_size_x = 0.009766
                 pixel_size_y = 0.003071
                 pixel_size_z = 1
-            elif 'Line' in file_name:
+            elif "Line" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 1
                 total_data_groups = 2
@@ -200,7 +222,7 @@ def main():
                 pixel_size_x = 0.008824
                 pixel_size_y = 0.003071
                 pixel_size_z = 1
-            elif 'PachymetryWide' in file_name:
+            elif "PachymetryWide" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 16
                 total_data_groups = 1
@@ -209,7 +231,7 @@ def main():
                 pixel_size_x = 0.005859
                 pixel_size_y = 0.003071
                 pixel_size_z = 1
-            elif 'Raster' in file_name:
+            elif "Raster" in file_name:
                 volume = np.frombuffer(f.read(), dtype=single)
                 frames_per_data_group = 21
                 total_data_groups = 1
@@ -245,23 +267,41 @@ def main():
                     frames_per_data_group = 304
                     oct_window_height = 304
                 total_data_groups = 1
-                xy_scan_length = len(volume) // (frames_per_data_group * oct_window_height)
+                xy_scan_length = len(volume) // (
+                    frames_per_data_group * oct_window_height
+                )
                 pixel_size_x = 1
                 pixel_size_y = 1
                 pixel_size_z = 1
 
             # Reshape array into 3 dimensions.
-            volume = np.reshape(volume, (frames_per_data_group * total_data_groups, xy_scan_length, oct_window_height))
+            volume = np.reshape(
+                volume,
+                (
+                    frames_per_data_group * total_data_groups,
+                    xy_scan_length,
+                    oct_window_height,
+                ),
+            )
 
             # Rotate array 90 degrees left (anti-clockwise) about the z-axis.
             if not args.en_face and not args.seg_curve:
                 volume = np.rot90(volume, k=1, axes=(1, 2))
 
-            tifffile.imwrite(output_path, volume, photometric='minisblack',
-                             metadata={'axes': 'ZYX', 'PhysicalSizeX': pixel_size_x, 'PhysicalSizeXUnit': 'mm',
-                                       'PhysicalSizeY': pixel_size_y, 'PhysicalSizeYUnit': 'mm',
-                                       'PhysicalSizeZ': pixel_size_z,
-                                       'PhysicalSizeZUnit': 'mm'})
+            tifffile.imwrite(
+                output_path,
+                volume,
+                photometric="minisblack",
+                metadata={
+                    "axes": "ZYX",
+                    "PhysicalSizeX": pixel_size_x,
+                    "PhysicalSizeXUnit": "mm",
+                    "PhysicalSizeY": pixel_size_y,
+                    "PhysicalSizeYUnit": "mm",
+                    "PhysicalSizeZ": pixel_size_z,
+                    "PhysicalSizeZUnit": "mm",
+                },
+            )
 
     if Path.is_file(output_path):
         if args.overwrite:
@@ -272,5 +312,5 @@ def main():
         convert_oct_file()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
