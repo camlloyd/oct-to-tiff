@@ -27,7 +27,7 @@ This tool has been developed by reverse engineering data from the Optovue RTVue 
 
 Due to limited test data, only the following scan patterns are currently supported:
 
-### OCT
+### Structural OCT
 - 3D Cornea
 - 3D Disc
 - 3D Retina
@@ -45,7 +45,7 @@ Due to limited test data, only the following scan patterns are currently support
 - Radial Lines
 - Raster
 
-### OCTA
+### OCT Angiography
 - Angio Disc
 - Angio Retina
 - HD Angio Disc
