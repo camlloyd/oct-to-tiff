@@ -102,9 +102,11 @@ Requires `--size SIZE`.
 #### `--en-face`
 **Description**: convert extracted en face data.
 
+Requires `--size SIZE`.
+
 **Usage**:
 
-    oct-to-tiff /path/to/data --en-face
+    oct-to-tiff /path/to/data --en-face --size 4.5
     
 #### `--seg-curve`
 **Description**: convert extracted segmentation data.
