@@ -294,13 +294,14 @@ def main():
     args = parser.parse_args()
 
     input_path = args.input
-    file_name = input_path.stem
     if args.output:
         dir_name = args.output
         dir_name.mkdir(parents=True, exist_ok=True)
     else:
         dir_name = input_path.parent
-    output_path = dir_name / (file_name + ".ome.tif")
+    file_name = input_path.stem
+    file_extension = ".ome.tif"
+    output_path = dir_name / (file_name + file_extension)
 
     if Path.is_file(output_path):
         if args.overwrite:
