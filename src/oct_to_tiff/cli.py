@@ -260,7 +260,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
         )
 
 
-@Gooey
+@Gooey(program_name="oct-to-tiff")
 def main():
     parser = argparse.ArgumentParser(
         description="Convert optical coherence tomography angiography (OCTA) data."
