@@ -3,6 +3,7 @@ from pathlib import Path
 
 import numpy as np
 import tifffile
+from gooey import Gooey, GooeyParser
 from numpy import single, uint16
 
 
@@ -259,6 +260,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
         )
 
 
+@Gooey
 def main():
     parser = argparse.ArgumentParser(
         description="Convert optical coherence tomography angiography (OCTA) data."
