@@ -1,4 +1,5 @@
 import argparse
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -259,6 +260,9 @@ def convert_oct_file(args, file_name, input_path, output_path):
             },
         )
 
+if len(sys.argv) >= 2:
+    if not "--ignore-gooey" in sys.argv:
+        sys.argv.append("--ignore-gooey")
 
 @Gooey(program_name="oct-to-tiff")
 def main():
