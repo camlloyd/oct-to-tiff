@@ -260,17 +260,26 @@ def convert_oct_file(args, file_name, input_path, output_path):
             },
         )
 
+
 if len(sys.argv) >= 2:
     if not "--ignore-gooey" in sys.argv:
         sys.argv.append("--ignore-gooey")
+
 
 @Gooey(program_name="oct-to-tiff")
 def main():
     parser = GooeyParser(
         description="Convert optical coherence tomography angiography (OCTA) data."
     )
-    parser.add_argument("input", type=Path, help="OCT file to convert", widget="FileChooser")
-    parser.add_argument("--output", type=Path, help="specify a custom output directory", widget="DirChooser")
+    parser.add_argument(
+        "input", type=Path, help="OCT file to convert", widget="FileChooser"
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        help="specify a custom output directory",
+        widget="DirChooser",
+    )
     parser.add_argument(
         "--overwrite",
         default=False,
