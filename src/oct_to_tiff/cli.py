@@ -176,6 +176,15 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_x = 0.009766
             pixel_size_y = 0.003071
             pixel_size_z = 1
+        elif 'Retina Map' in file_name:
+            volume = np.frombuffer(f.read(), dtype=single, count=6680960)
+            frames_per_data_group = 13
+            total_data_groups = 1
+            oct_window_height = 640
+            xy_scan_length = 803
+            pixel_size_x = 0.007472
+            pixel_size_y = 0.003071
+            pixel_size_z = 1
         elif "Line" in file_name:
             volume = np.frombuffer(f.read(), dtype=single)
             frames_per_data_group = 1
