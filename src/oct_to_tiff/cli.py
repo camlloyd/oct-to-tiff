@@ -1,9 +1,15 @@
 import argparse
+import logging
 from pathlib import Path
 
 import numpy as np
 import tifffile
 from numpy import single, uint16
+
+logging.basicConfig(
+    format="%(asctime)s %(name)s:%(funcName)s %(levelname)s - %(message)s"
+)
+logger = logging.getLogger(__name__)
 
 
 def convert_oct_file(args, file_name, input_path, output_path):
@@ -307,7 +313,7 @@ def main():
         if args.overwrite:
             convert_oct_file(args, file_name, input_path, output_path)
         else:
-            print(str(output_path) + " already exists.")
+            logger.error(f"{output_path} already exists.")
     else:
         convert_oct_file(args, file_name, input_path, output_path)
 
