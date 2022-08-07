@@ -4,7 +4,6 @@ from pathlib import Path
 
 import numpy as np
 import tifffile
-from numpy import single, uint16
 
 logging.basicConfig(
     format="%(asctime)s %(name)s:%(funcName)s %(levelname)s - %(message)s"
@@ -14,8 +13,39 @@ logger = logging.getLogger(__name__)
 
 def convert_oct_file(args, file_name, input_path, output_path):
     with open(input_path, "rb") as f:
-        if "3D Cornea" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+        if args.angio and args.size:
+            volume = np.frombuffer(f.read(), dtype=np.uint16)
+            oct_window_height = 160
+            frames_per_data_group = int((len(volume) // oct_window_height) ** 0.5)
+            total_data_groups = 1
+            xy_scan_length = int((len(volume) // oct_window_height) ** 0.5)
+            pixel_size_x = args.size / xy_scan_length
+            pixel_size_y = 0.012283
+            pixel_size_z = args.size / frames_per_data_group
+        elif args.en_face and args.size:
+            volume = np.frombuffer(f.read(), dtype=np.single)
+            frames_per_data_group = 1
+            total_data_groups = 1
+            oct_window_height = int(len(volume) ** 0.5)
+            xy_scan_length = int(len(volume) ** 0.5)
+            pixel_size_x = args.size / oct_window_height
+            pixel_size_y = args.size / xy_scan_length
+            pixel_size_z = 1
+        elif args.seg_curve:
+            volume = np.frombuffer(f.read(), dtype=np.single)
+            if len(volume) == 1280000 or len(volume) == 1120000:
+                frames_per_data_group = 400
+                oct_window_height = 400
+            elif len(volume) == 739328 or len(volume) == 646912:
+                frames_per_data_group = 304
+                oct_window_height = 304
+            total_data_groups = 1
+            xy_scan_length = len(volume) // (frames_per_data_group * oct_window_height)
+            pixel_size_x = 1
+            pixel_size_y = 1
+            pixel_size_z = 1
+        elif "3D Cornea" in file_name:
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 106
             total_data_groups = 1
             oct_window_height = 640
@@ -24,7 +54,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 0.040000
         elif "3D Disc" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 106
             total_data_groups = 1
             oct_window_height = 768
@@ -33,7 +63,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 0.060000
         elif "3D Retina" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 144
             total_data_groups = 1
             oct_window_height = 640
@@ -42,7 +72,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 0.050000
         elif "3D Widefield MCT" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 320
             total_data_groups = 1
             oct_window_height = 768
@@ -51,7 +81,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 0.028125
         elif "3D Widefield" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 323
             total_data_groups = 1
             oct_window_height = 768
@@ -60,7 +90,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 0.028125
         elif "Angle" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 1
             total_data_groups = 2
             oct_window_height = 768
@@ -69,7 +99,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 1
         elif "Cornea Cross Line" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 2
             total_data_groups = 2
             oct_window_height = 640
@@ -78,7 +108,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 1
         elif "Cornea Line" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 1
             total_data_groups = 2
             oct_window_height = 640
@@ -87,7 +117,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 1
         elif "Cross Line" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 2
             total_data_groups = 2
             oct_window_height = 768
@@ -96,7 +126,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 1
         elif "Enhanced HD Line" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 1
             total_data_groups = 2
             oct_window_height = 960
@@ -105,7 +135,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 1
         elif "GCC" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 16
             total_data_groups = 1
             oct_window_height = 640
@@ -114,7 +144,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 1
         elif "Grid" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 10
             total_data_groups = 1
             oct_window_height = 640
@@ -123,7 +153,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 1
         elif "HD Angio Disc" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 400
             total_data_groups = 1
             oct_window_height = 640
@@ -135,7 +165,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
                 pixel_size_x = args.size / xy_scan_length
                 pixel_size_z = args.size / frames_per_data_group
         elif "Angio Disc" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 304
             total_data_groups = 1
             oct_window_height = 640
@@ -147,7 +177,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
                 pixel_size_x = args.size / xy_scan_length
                 pixel_size_z = args.size / frames_per_data_group
         elif "HD Angio Retina" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 400
             total_data_groups = 1
             oct_window_height = 640
@@ -156,7 +186,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 0.015000
         elif "Angio Retina" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 304
             total_data_groups = 1
             oct_window_height = 640
@@ -168,7 +198,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
                 pixel_size_x = args.size / xy_scan_length
                 pixel_size_z = args.size / frames_per_data_group
         elif "Radial Lines" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 18
             total_data_groups = 1
             oct_window_height = 640
@@ -176,17 +206,8 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_x = 0.009766
             pixel_size_y = 0.003071
             pixel_size_z = 1
-        elif 'Retina Map' in file_name:
-            volume = np.frombuffer(f.read(), dtype=single, count=6680960)
-            frames_per_data_group = 13
-            total_data_groups = 1
-            oct_window_height = 640
-            xy_scan_length = 803
-            pixel_size_x = 0.007472
-            pixel_size_y = 0.003071
-            pixel_size_z = 1
         elif "Line" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 1
             total_data_groups = 2
             oct_window_height = 960
@@ -195,7 +216,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 1
         elif "PachymetryWide" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 16
             total_data_groups = 1
             oct_window_height = 640
@@ -204,7 +225,7 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 1
         elif "Raster" in file_name:
-            volume = np.frombuffer(f.read(), dtype=single)
+            volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 21
             total_data_groups = 1
             oct_window_height = 768
@@ -212,36 +233,14 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_x = 0.011765
             pixel_size_y = 0.003071
             pixel_size_z = 1
-        elif args.angio and args.size:
-            volume = np.frombuffer(f.read(), dtype=uint16)
-            oct_window_height = 160
-            frames_per_data_group = int((len(volume) // oct_window_height) ** 0.5)
+        elif "Retina Map" in file_name:
+            volume = np.frombuffer(f.read(), dtype=np.single, count=6680960)
+            frames_per_data_group = 13
             total_data_groups = 1
-            xy_scan_length = int((len(volume) // oct_window_height) ** 0.5)
-            pixel_size_x = args.size / xy_scan_length
-            pixel_size_y = 0.012283
-            pixel_size_z = args.size / frames_per_data_group
-        elif args.en_face and args.size:
-            volume = np.frombuffer(f.read(), dtype=single)
-            frames_per_data_group = 1
-            total_data_groups = 1
-            oct_window_height = int(len(volume) ** 0.5)
-            xy_scan_length = int(len(volume) ** 0.5)
-            pixel_size_x = args.size / oct_window_height
-            pixel_size_y = args.size / xy_scan_length
-            pixel_size_z = 1
-        elif args.seg_curve:
-            volume = np.frombuffer(f.read(), dtype=single)
-            if len(volume) == 1280000 or len(volume) == 1120000:
-                frames_per_data_group = 400
-                oct_window_height = 400
-            elif len(volume) == 739328 or len(volume) == 646912:
-                frames_per_data_group = 304
-                oct_window_height = 304
-            total_data_groups = 1
-            xy_scan_length = len(volume) // (frames_per_data_group * oct_window_height)
-            pixel_size_x = 1
-            pixel_size_y = 1
+            oct_window_height = 640
+            xy_scan_length = 803
+            pixel_size_x = 0.007472
+            pixel_size_y = 0.003071
             pixel_size_z = 1
 
         # Reshape array into 3 dimensions.
