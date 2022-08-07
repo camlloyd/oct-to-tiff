@@ -44,6 +44,7 @@ Due to limited test data, only the following scan patterns are currently support
 - Pachymetry Wide
 - Radial Lines
 - Raster
+- Retina Map (Partial)
 
 ### OCT Angiography
 - Angio Disc
