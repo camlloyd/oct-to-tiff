@@ -243,34 +243,104 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_y = 0.003071
             pixel_size_z = 1
 
-        # Reshape array into 3 dimensions.
-        volume = np.reshape(
+        volume = reshape_volume(
             volume,
-            (
-                frames_per_data_group * total_data_groups,
-                xy_scan_length,
-                oct_window_height,
-            ),
+            frames_per_data_group,
+            total_data_groups,
+            oct_window_height,
+            xy_scan_length,
         )
 
-        # Rotate array 90 degrees left (anti-clockwise) about the z-axis.
         if not args.en_face and not args.seg_curve:
-            volume = np.rot90(volume, k=1, axes=(1, 2))
+            volume = rotate_volume(volume)
 
-        tifffile.imwrite(
-            output_path,
-            volume,
-            photometric="minisblack",
-            metadata={
-                "axes": "ZYX",
-                "PhysicalSizeX": pixel_size_x,
-                "PhysicalSizeXUnit": "mm",
-                "PhysicalSizeY": pixel_size_y,
-                "PhysicalSizeYUnit": "mm",
-                "PhysicalSizeZ": pixel_size_z,
-                "PhysicalSizeZUnit": "mm",
-            },
-        )
+        write_volume(output_path, volume, pixel_size_x, pixel_size_y, pixel_size_z)
+
+
+def reshape_volume(
+    volume, frames_per_data_group, total_data_groups, oct_window_height, xy_scan_length
+):
+    """Reshape a 1-dimensional array to a 3-dimensional array.
+
+    Parameters
+    ----------
+    volume : ndarray
+        A 1-dimensional array.
+    frames_per_data_group : int
+        The number of frames per data group.
+    total_data_groups : int
+        The total number of data groups.
+    oct_window_height : int
+        The OCT window height.
+    xy_scan_length : int
+        The XY scan length.
+
+    Returns
+    -------
+    volume : ndarray
+        A 3-dimensional array.
+
+    """
+    volume = np.reshape(
+        volume,
+        (
+            frames_per_data_group * total_data_groups,
+            xy_scan_length,
+            oct_window_height,
+        ),
+    )
+    return volume
+
+
+def rotate_volume(volume):
+    """Rotate a 3-dimensional array 90 degrees left (anti-clockwise) about the z-axis.
+
+    Parameters
+    ----------
+    volume : ndarray
+        A 3-dimensional array.
+
+    Returns
+    -------
+    volume : ndarray
+        A rotated version of the input volume.
+
+    """
+    volume = np.rot90(volume, k=1, axes=(1, 2))
+    return volume
+
+
+def write_volume(output_path, volume, pixel_size_x, pixel_size_y, pixel_size_z):
+    """Write a 3-dimensional array to the output path as an OME-TIFF file, including voxel size in the metadata.
+
+    Parameters
+    ----------
+    output_path : Path
+        The specified output path.
+    volume : ndarray
+        A 3-dimensional array.
+    pixel_size_x : float
+        The pixel (voxel) width in mm.
+    pixel_size_y : float
+        The pixel (voxel) height in mm.
+    pixel_size_z : float
+        The pixel (voxel) depth in mm.
+
+    """
+    tifffile.imwrite(
+        output_path,
+        volume,
+        photometric="minisblack",
+        metadata={
+            "axes": "ZYX",
+            "PhysicalSizeX": pixel_size_x,
+            "PhysicalSizeXUnit": "mm",
+            "PhysicalSizeY": pixel_size_y,
+            "PhysicalSizeYUnit": "mm",
+            "PhysicalSizeZ": pixel_size_z,
+            "PhysicalSizeZUnit": "mm",
+        },
+    )
 
 
 def main():
