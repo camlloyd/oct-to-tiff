@@ -5,7 +5,13 @@
 A command line tool for converting optical coherence tomography angiography (OCTA) data.
 
 ## Installation
+via pip:
+
     pip install oct-to-tiff
+
+via conda:
+
+    conda install -c conda-forge oct-to-tiff
 
 ## Getting started
     oct-to-tiff /path/to/image.OCT
