@@ -25,7 +25,7 @@ By default, the output file will be written with the same name as the input file
         ├── image.OCT
         └── image.ome.tif
 
-To specify a custom output directory, see [Optional arguments](https://github.com/camlloyd/oct-to-tiff#optional-arguments).
+To specify a custom output directory, see [Optional arguments](#optional-arguments) below.
 
 ## Supported scan patterns
 
@@ -47,6 +47,7 @@ Due to limited test data, only the following scan patterns are currently support
 - GCC
 - Grid
 - Line
+- ONH (Partial)
 - Pachymetry Wide
 - Radial Lines
 - Raster
