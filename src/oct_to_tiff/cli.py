@@ -215,6 +215,15 @@ def convert_oct_file(args, file_name, input_path, output_path):
             pixel_size_x = 0.008824
             pixel_size_y = 0.003071
             pixel_size_z = 1
+        elif "ONH" in file_name:
+            volume = np.frombuffer(f.read(), dtype=np.single, count=2223360)
+            frames_per_data_group = 3
+            total_data_groups = 1
+            oct_window_height = 768
+            xy_scan_length = 965
+            pixel_size_x = 0.015952
+            pixel_size_y = 0.003071
+            pixel_size_z = 1
         elif "PachymetryWide" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 16
