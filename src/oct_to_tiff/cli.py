@@ -383,7 +383,7 @@ def main():
         action="store_true",
         help="convert extracted segmentation data",
     )
-    parser.add_argument("--version", action="version", version="%(prog)s 0.2.0")
+    parser.add_argument("--version", action="version", version="%(prog)s 0.3.0")
     args = parser.parse_args()
 
     input_path = args.input
