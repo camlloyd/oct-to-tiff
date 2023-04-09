@@ -11,7 +11,142 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def convert_oct_file(args, file_name, input_path, output_path):
+def reshape_volume(
+    volume, frames_per_data_group, total_data_groups, oct_window_height, xy_scan_length
+):
+    """Reshape a 1-dimensional array to a 3-dimensional array.
+
+    Parameters
+    ----------
+    volume : ndarray
+        A 1-dimensional array.
+    frames_per_data_group : int
+        The number of frames per data group.
+    total_data_groups : int
+        The total number of data groups.
+    oct_window_height : int
+        The OCT window height.
+    xy_scan_length : int
+        The XY scan length.
+
+    Returns
+    -------
+    volume : ndarray
+        A 3-dimensional array.
+
+    """
+    volume = np.reshape(
+        volume,
+        (
+            frames_per_data_group * total_data_groups,
+            xy_scan_length,
+            oct_window_height,
+        ),
+    )
+    return volume
+
+
+def rotate_volume(volume):
+    """Rotate a 3-dimensional array 90 degrees left (anti-clockwise) about the z-axis.
+
+    Parameters
+    ----------
+    volume : ndarray
+        A 3-dimensional array.
+
+    Returns
+    -------
+    volume : ndarray
+        A rotated version of the input volume.
+
+    """
+    volume = np.rot90(volume, k=1, axes=(1, 2))
+    return volume
+
+
+def write_volume(output_path, volume, pixel_size_x, pixel_size_y, pixel_size_z):
+    """Write a 3-dimensional array to the output path as an OME-TIFF file, including voxel size in the metadata.
+
+    Parameters
+    ----------
+    output_path : Path
+        The specified output path.
+    volume : ndarray
+        A 3-dimensional array.
+    pixel_size_x : float
+        The pixel (voxel) width in mm.
+    pixel_size_y : float
+        The pixel (voxel) height in mm.
+    pixel_size_z : float
+        The pixel (voxel) depth in mm.
+
+    """
+    tifffile.imwrite(
+        output_path,
+        volume,
+        photometric="minisblack",
+        metadata={
+            "axes": "ZYX",
+            "PhysicalSizeX": pixel_size_x,
+            "PhysicalSizeXUnit": "mm",
+            "PhysicalSizeY": pixel_size_y,
+            "PhysicalSizeYUnit": "mm",
+            "PhysicalSizeZ": pixel_size_z,
+            "PhysicalSizeZUnit": "mm",
+        },
+    )
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Convert optical coherence tomography angiography (OCTA) data."
+    )
+    parser.add_argument("input", type=Path, help="OCT file to convert")
+    parser.add_argument("--output", type=Path, help="specify a custom output directory")
+    parser.add_argument(
+        "--overwrite",
+        default=False,
+        action="store_true",
+        help="overwrite output file if it exists",
+    )
+    parser.add_argument("--size", type=float, help="scan size in mm")
+    parser.add_argument(
+        "--angio",
+        default=False,
+        action="store_true",
+        help="convert extracted OCTA data",
+    )
+    parser.add_argument(
+        "--en-face",
+        default=False,
+        action="store_true",
+        help="convert extracted en face image",
+    )
+    parser.add_argument(
+        "--seg-curve",
+        default=False,
+        action="store_true",
+        help="convert extracted segmentation data",
+    )
+    parser.add_argument("--version", action="version", version="%(prog)s 0.3.0")
+    args = parser.parse_args()
+
+    input_path = args.input
+    if args.output:
+        dir_name = args.output
+        dir_name.mkdir(parents=True, exist_ok=True)
+    else:
+        dir_name = input_path.parent
+    file_name = input_path.stem
+    file_extension = ".ome.tif"
+    output_path = dir_name / (file_name + file_extension)
+
+    if Path.is_file(output_path):
+        if args.overwrite:
+            pass
+        else:
+            logger.error(f"{output_path} already exists.")
+            return
     with open(input_path, "rb") as f:
         if args.angio and args.size:
             volume = np.frombuffer(f.read(), dtype=np.uint16)
@@ -264,145 +399,6 @@ def convert_oct_file(args, file_name, input_path, output_path):
             volume = rotate_volume(volume)
 
         write_volume(output_path, volume, pixel_size_x, pixel_size_y, pixel_size_z)
-
-
-def reshape_volume(
-    volume, frames_per_data_group, total_data_groups, oct_window_height, xy_scan_length
-):
-    """Reshape a 1-dimensional array to a 3-dimensional array.
-
-    Parameters
-    ----------
-    volume : ndarray
-        A 1-dimensional array.
-    frames_per_data_group : int
-        The number of frames per data group.
-    total_data_groups : int
-        The total number of data groups.
-    oct_window_height : int
-        The OCT window height.
-    xy_scan_length : int
-        The XY scan length.
-
-    Returns
-    -------
-    volume : ndarray
-        A 3-dimensional array.
-
-    """
-    volume = np.reshape(
-        volume,
-        (
-            frames_per_data_group * total_data_groups,
-            xy_scan_length,
-            oct_window_height,
-        ),
-    )
-    return volume
-
-
-def rotate_volume(volume):
-    """Rotate a 3-dimensional array 90 degrees left (anti-clockwise) about the z-axis.
-
-    Parameters
-    ----------
-    volume : ndarray
-        A 3-dimensional array.
-
-    Returns
-    -------
-    volume : ndarray
-        A rotated version of the input volume.
-
-    """
-    volume = np.rot90(volume, k=1, axes=(1, 2))
-    return volume
-
-
-def write_volume(output_path, volume, pixel_size_x, pixel_size_y, pixel_size_z):
-    """Write a 3-dimensional array to the output path as an OME-TIFF file, including voxel size in the metadata.
-
-    Parameters
-    ----------
-    output_path : Path
-        The specified output path.
-    volume : ndarray
-        A 3-dimensional array.
-    pixel_size_x : float
-        The pixel (voxel) width in mm.
-    pixel_size_y : float
-        The pixel (voxel) height in mm.
-    pixel_size_z : float
-        The pixel (voxel) depth in mm.
-
-    """
-    tifffile.imwrite(
-        output_path,
-        volume,
-        photometric="minisblack",
-        metadata={
-            "axes": "ZYX",
-            "PhysicalSizeX": pixel_size_x,
-            "PhysicalSizeXUnit": "mm",
-            "PhysicalSizeY": pixel_size_y,
-            "PhysicalSizeYUnit": "mm",
-            "PhysicalSizeZ": pixel_size_z,
-            "PhysicalSizeZUnit": "mm",
-        },
-    )
-
-
-def main():
-    parser = argparse.ArgumentParser(
-        description="Convert optical coherence tomography angiography (OCTA) data."
-    )
-    parser.add_argument("input", type=Path, help="OCT file to convert")
-    parser.add_argument("--output", type=Path, help="specify a custom output directory")
-    parser.add_argument(
-        "--overwrite",
-        default=False,
-        action="store_true",
-        help="overwrite output file if it exists",
-    )
-    parser.add_argument("--size", type=float, help="scan size in mm")
-    parser.add_argument(
-        "--angio",
-        default=False,
-        action="store_true",
-        help="convert extracted OCTA data",
-    )
-    parser.add_argument(
-        "--en-face",
-        default=False,
-        action="store_true",
-        help="convert extracted en face image",
-    )
-    parser.add_argument(
-        "--seg-curve",
-        default=False,
-        action="store_true",
-        help="convert extracted segmentation data",
-    )
-    parser.add_argument("--version", action="version", version="%(prog)s 0.3.0")
-    args = parser.parse_args()
-
-    input_path = args.input
-    if args.output:
-        dir_name = args.output
-        dir_name.mkdir(parents=True, exist_ok=True)
-    else:
-        dir_name = input_path.parent
-    file_name = input_path.stem
-    file_extension = ".ome.tif"
-    output_path = dir_name / (file_name + file_extension)
-
-    if Path.is_file(output_path):
-        if args.overwrite:
-            convert_oct_file(args, file_name, input_path, output_path)
-        else:
-            logger.error(f"{output_path} already exists.")
-    else:
-        convert_oct_file(args, file_name, input_path, output_path)
 
 
 if __name__ == "__main__":
