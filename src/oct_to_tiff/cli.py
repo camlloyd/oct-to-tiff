@@ -1,5 +1,6 @@
 import argparse
 import logging
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import numpy as np
@@ -97,6 +98,32 @@ def write_volume(output_path, volume, pixel_size_x, pixel_size_y, pixel_size_z):
     )
 
 
+def extract_boundaries(input_path):
+    """Extract segmentation lines.
+
+    Parameters
+    ----------
+    input_path : Path
+        The specified input path.
+
+    """
+    tree = ET.parse(input_path)
+    root = tree.getroot()
+
+    array_size = int(root.findtext("./Curve_Set/Image/Curve/ARRAY"))
+    data_points = [
+        int(point.text) for point in root.findall("./Curve_Set/Image/Curve/D")
+    ]
+    scan_length = np.arange(len(data_points))
+    num_files = len(data_points) // array_size
+    for i in range(num_files):
+        start = i * array_size
+        end = start + array_size
+        table = np.column_stack([scan_length[start:end], data_points[start:end]])
+        table_path = f"{input_path.parent}/{input_path.stem}_{i+1}.txt"
+        np.savetxt(table_path, table, delimiter="\t", fmt="%d")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Convert optical coherence tomography angiography (OCTA) data."
@@ -128,6 +155,12 @@ def main():
         action="store_true",
         help="convert extracted segmentation data",
     )
+    parser.add_argument(
+        "--boundaries",
+        default=False,
+        action="store_true",
+        help="extract segmentation lines",
+    )
     parser.add_argument("--version", action="version", version="%(prog)s 0.3.0")
     args = parser.parse_args()
 
@@ -147,6 +180,11 @@ def main():
         else:
             logger.error(f"{output_path} already exists.")
             return
+
+    if args.boundaries:
+        extract_boundaries(input_path)
+        return
+
     with open(input_path, "rb") as f:
         if args.angio and args.size:
             volume = np.frombuffer(f.read(), dtype=np.uint16)
