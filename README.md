@@ -123,6 +123,13 @@ Requires `--size SIZE`.
 
     oct-to-tiff /path/to/data --seg-curve
 
+#### `--boundaries`
+**Description**: extract segmentation lines.
+
+**Usage**:
+
+    oct-to-tiff /path/to/curve.xml --boundaries
+
 ## Contributing
 
 This project uses [black](https://github.com/psf/black) for formatting and [isort](https://github.com/PyCQA/isort) for sorting imports.
