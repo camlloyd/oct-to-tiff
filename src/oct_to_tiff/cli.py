@@ -137,25 +137,26 @@ def main():
         help="overwrite output file if it exists",
     )
     parser.add_argument("--size", type=float, help="scan size in mm")
-    parser.add_argument(
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
         "--angio",
         default=False,
         action="store_true",
         help="convert extracted OCTA data",
     )
-    parser.add_argument(
+    group.add_argument(
         "--en-face",
         default=False,
         action="store_true",
         help="convert extracted en face image",
     )
-    parser.add_argument(
+    group.add_argument(
         "--seg-curve",
         default=False,
         action="store_true",
         help="convert extracted segmentation data",
     )
-    parser.add_argument(
+    group.add_argument(
         "--boundaries",
         default=False,
         action="store_true",
