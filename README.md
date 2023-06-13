@@ -96,7 +96,7 @@ Sets the correct voxel size for scan patterns with adjustable length.
 
     oct-to-tiff --version
 
-#### The following options are currently experimental:
+#### The following options are mutually exclusive:
     
 #### `--angio`
 **Description**: convert extracted OCTA data. 
@@ -136,4 +136,4 @@ This project uses [black](https://github.com/psf/black) for formatting and [isor
 
 ## Requirements
 
-Requires Python 3.7 or higher.
+Requires Python 3.8 or higher.
