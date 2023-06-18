@@ -162,7 +162,7 @@ def main():
         action="store_true",
         help="extract segmentation lines",
     )
-    parser.add_argument("--version", action="version", version="%(prog)s 0.3.0")
+    parser.add_argument("--version", action="version", version="%(prog)s 0.4.0")
     args = parser.parse_args()
 
     input_path = args.input
