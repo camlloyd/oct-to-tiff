@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.4.0
+* Add support for extracting segmentation lines
+* Add mutually exclusive group to parser
+* Drop support for Python 3.7
+* Refactoring
+
 ## Version 0.3.0
 * Add support for Retina Map scan pattern
 * Add support for ONH scan pattern
