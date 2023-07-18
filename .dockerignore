@@ -1,0 +1,12 @@
+.dockerignore
+.git
+.github
+.gitignore
+.idea
+build
+dist
+oct_to_tiff.egg-info
+Dockerfile
+*.md
+*.txt
+*.cff
