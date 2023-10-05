@@ -27,6 +27,12 @@ By default, the output file will be written with the same name as the input file
 
 To specify a custom output directory, see [Optional arguments](#optional-arguments) below.
 
+## Batch processing
+``` bash
+for file in *.OCT; do oct-to-tiff "${file}"; done
+```
+will convert all OCT volumes in the current directory to OME-TIFF files, including voxel size in the metadata.
+
 ## Supported scan patterns
 
 This tool has been developed by reverse engineering data from the Optovue RTVue XR Avanti System.
