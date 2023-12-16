@@ -1,8 +1,8 @@
 import argparse
 import logging
-import xml.etree.ElementTree as ET
 from pathlib import Path
 
+import defusedxml.ElementTree as DET
 import numpy as np
 import tifffile
 
@@ -107,7 +107,7 @@ def extract_boundaries(input_path):
         The specified input path.
 
     """
-    tree = ET.parse(input_path)
+    tree = DET.parse(input_path)
     root = tree.getroot()
 
     array_size = int(root.findtext("./Curve_Set/Image/Curve/ARRAY"))
