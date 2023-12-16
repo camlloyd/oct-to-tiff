@@ -138,7 +138,7 @@ Requires `--size SIZE`.
 
 ## Contributing
 
-This project uses [black](https://github.com/psf/black) for formatting and [isort](https://github.com/PyCQA/isort) for sorting imports.
+This project uses [Ruff](https://github.com/astral-sh/ruff) for linting and formatting.
 
 ## Requirements
 
