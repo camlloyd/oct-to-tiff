@@ -42,8 +42,8 @@ oct-to-tiff = "oct_to_tiff.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.ruff]
+[tool.ruff.lint]
 select = [
     "I", # isort
-    "S", # bandit
+    "S", # flake8-bandit
 ]
