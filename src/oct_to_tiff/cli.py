@@ -1,5 +1,6 @@
 import argparse
 import logging
+from importlib.metadata import version
 from pathlib import Path
 
 import defusedxml.ElementTree as DET
@@ -162,7 +163,9 @@ def main():
         action="store_true",
         help="extract segmentation lines",
     )
-    parser.add_argument("--version", action="version", version="%(prog)s 0.4.0")
+    parser.add_argument(
+        "--version", action="version", version="%(prog)s " + version("oct_to_tiff")
+    )
     args = parser.parse_args()
 
     input_path = args.input
