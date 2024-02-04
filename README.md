@@ -95,6 +95,13 @@ Sets the correct voxel size for scan patterns with adjustable length.
 
     oct-to-tiff /path/to/image.OCT --size 4.5
 
+#### `--log-level LEVEL`
+**Description**: sets the logging level (default: `WARNING`)
+
+**Usage**:
+
+    oct-to-tiff /path/to/image.OCT --log-level INFO
+
 #### `--version`
 **Description**: show program's version number and exit.
 
