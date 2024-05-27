@@ -2,22 +2,28 @@ import argparse
 import logging
 from importlib.metadata import version
 from pathlib import Path
+from typing import Any
 
 import defusedxml.ElementTree as DET
 import numpy as np
 import tifffile
+from numpy.typing import NDArray
 
 logger = logging.getLogger(__name__)
 
 
 def reshape_volume(
-    volume, frames_per_data_group, total_data_groups, oct_window_height, xy_scan_length
-):
+    volume: NDArray[Any],
+    frames_per_data_group: int,
+    total_data_groups: int,
+    oct_window_height: int,
+    xy_scan_length: int,
+) -> NDArray[Any]:
     """Reshape a 1-dimensional array to a 3-dimensional array.
 
     Parameters
     ----------
-    volume : ndarray
+    volume : NDArray[Any]
         A 1-dimensional array.
     frames_per_data_group : int
         The number of frames per data group.
@@ -30,7 +36,7 @@ def reshape_volume(
 
     Returns
     -------
-    volume : ndarray
+    volume : NDArray[Any]
         A 3-dimensional array.
 
     """
@@ -45,17 +51,19 @@ def reshape_volume(
     return volume
 
 
-def rotate_volume(volume):
+def rotate_volume(
+    volume: NDArray[Any],
+) -> NDArray[Any]:
     """Rotate a 3-dimensional array 90 degrees left (anti-clockwise) about the z-axis.
 
     Parameters
     ----------
-    volume : ndarray
+    volume : NDArray[Any]
         A 3-dimensional array.
 
     Returns
     -------
-    volume : ndarray
+    volume : NDArray[Any]
         A rotated version of the input volume.
 
     """
@@ -63,14 +71,20 @@ def rotate_volume(volume):
     return volume
 
 
-def write_volume(output_path, volume, pixel_size_x, pixel_size_y, pixel_size_z):
+def write_volume(
+    output_path: Path,
+    volume: NDArray[Any],
+    pixel_size_x: float,
+    pixel_size_y: float,
+    pixel_size_z: float,
+) -> None:
     """Write a 3-dimensional array to the output path as an OME-TIFF file, including voxel size in the metadata.
 
     Parameters
     ----------
     output_path : Path
         The specified output path.
-    volume : ndarray
+    volume : NDArray[Any]
         A 3-dimensional array.
     pixel_size_x : float
         The pixel (voxel) width in mm.
@@ -96,7 +110,7 @@ def write_volume(output_path, volume, pixel_size_x, pixel_size_y, pixel_size_z):
     )
 
 
-def extract_boundaries(input_path):
+def extract_boundaries(input_path: Path) -> None:
     """Extract segmentation lines.
 
     Parameters
@@ -122,7 +136,7 @@ def extract_boundaries(input_path):
         np.savetxt(table_path, table, delimiter="\t", fmt="%d")
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(
         description="Convert optical coherence tomography angiography (OCTA) data."
     )
