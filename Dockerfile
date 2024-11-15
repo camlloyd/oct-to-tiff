@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM python:3.8.18-slim
+FROM python:3.10.15-slim
 
 LABEL org.opencontainers.image.authors="Cameron Lloyd <lloyd@med.unideb.hu>" \
       org.opencontainers.image.source="https://github.com/camlloyd/oct-to-tiff" \
