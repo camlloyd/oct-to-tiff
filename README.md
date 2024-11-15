@@ -149,4 +149,4 @@ This project uses [Ruff](https://github.com/astral-sh/ruff) for linting and form
 
 ## Requirements
 
-Requires Python 3.8 or higher.
+Requires Python 3.10 or higher.
