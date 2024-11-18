@@ -1,18 +1,43 @@
 # syntax=docker/dockerfile:1
-FROM python:3.10.15-slim
+ARG PYTHON_VERSION=3.10.15
+FROM python:${PYTHON_VERSION}-slim AS base
 
-LABEL org.opencontainers.image.authors="Cameron Lloyd <lloyd@med.unideb.hu>" \
-      org.opencontainers.image.source="https://github.com/camlloyd/oct-to-tiff" \
-      org.opencontainers.image.licenses="BSD-3-Clause" \
-      org.opencontainers.image.title="oct-to-tiff" \
-      org.opencontainers.image.description="A command line tool for converting optical coherence tomography angiography (OCTA) data."
+# Prevents Python from writing pyc files.
+ENV PYTHONDONTWRITEBYTECODE=1
 
-RUN useradd --create-home appuser
+# Keeps Python from buffering stdout and stderr to avoid situations where
+# the application crashes without emitting any logs due to buffering.
+ENV PYTHONUNBUFFERED=1
 
-WORKDIR /home/appuser
+WORKDIR /app
 
+# Create a non-privileged user that the app will run under.
+# See https://docs.docker.com/go/dockerfile-user-best-practices/
+ARG UID=10001
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
+    appuser
+
+# Download dependencies as a separate step to take advantage of Docker's caching.
+# Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
+# Leverage a bind mount to requirements.txt to avoid having to copy them into
+# into this layer.
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=bind,source=requirements.txt,target=requirements.txt \
+    python -m pip install -r requirements.txt
+
+# Copy the source code into the container.
+COPY . .
+
+RUN python -m pip install --no-cache-dir .
+
+# Switch to the non-privileged user to run the application.
 USER appuser
 
-RUN pip install --no-cache-dir oct-to-tiff==0.4.0
-
+# Run the application.
 ENTRYPOINT [ "python", "-m", "oct_to_tiff.cli" ]
