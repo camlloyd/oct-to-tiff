@@ -9,9 +9,9 @@ via pip:
 
     pip install oct-to-tiff
 
-via conda:
+via mamba:
 
-    conda install -c conda-forge oct-to-tiff
+    mamba install -c conda-forge oct-to-tiff
 
 ## Getting started
     oct-to-tiff /path/to/image.OCT
