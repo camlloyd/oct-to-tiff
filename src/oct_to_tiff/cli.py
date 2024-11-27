@@ -110,15 +110,16 @@ def write_volume(
     )
 
 
-def extract_boundaries(input_path: Path) -> None:
+def extract_boundaries(input_path: str | Path) -> None:
     """Extract segmentation lines.
 
     Parameters
     ----------
-    input_path : Path
+    input_path : str | Path
         The specified input path.
 
     """
+    input_path = Path(input_path)
     tree = DET.parse(input_path)
     root = tree.getroot()
 
