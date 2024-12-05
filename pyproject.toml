@@ -30,6 +30,13 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "mypy",
+    "ruff",
+    "types-defusedxml"
+]
+
 [project.urls]
 Homepage = "https://github.com/camlloyd/oct-to-tiff"
 "Bug Tracker" = "https://github.com/camlloyd/oct-to-tiff/issues"
