@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.5.0 (2024-12-05)
+* Add --log-level optional argument
+* Add type hints
+* Drop support for Python 3.8 and 3.9
+* Update Docker build
+* Add workflow for publishing to Docker Hub
+* Set missing data points to default value of `0`
+
 
 ## v0.4.0 (2023-07-18)
 * Add support for extracting segmentation lines
