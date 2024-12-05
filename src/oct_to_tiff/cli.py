@@ -123,9 +123,10 @@ def extract_boundaries(input_path: str | Path) -> None:
     tree = DET.parse(input_path)
     root = tree.getroot()
 
-    array_size = int(root.findtext("./Curve_Set/Image/Curve/ARRAY"))
+    array_size = int(root.findtext("./Curve_Set/Image/Curve/ARRAY", 0))
     data_points = [
-        int(point.text) for point in root.findall("./Curve_Set/Image/Curve/D")
+        int(point.text) if point.text else 0
+        for point in root.findall("./Curve_Set/Image/Curve/D")
     ]
     scan_length = np.arange(len(data_points))
     num_files = len(data_points) // array_size
