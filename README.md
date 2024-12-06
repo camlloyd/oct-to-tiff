@@ -1,6 +1,10 @@
 # oct-to-tiff
 
 [![DOI](https://zenodo.org/badge/382486199.svg)](https://zenodo.org/badge/latestdoi/382486199)
+[![PyPI - Version](https://img.shields.io/pypi/v/oct-to-tiff)](https://pypi.org/project/oct-to-tiff)
+[![PyPI - License](https://img.shields.io/pypi/l/oct-to-tiff)](https://github.com/camlloyd/oct-to-tiff/blob/main/LICENSE.txt)
+[![PyPI Downloads](https://static.pepy.tech/badge/oct-to-tiff)](https://pepy.tech/projects/oct-to-tiff)
+
 
 A command line tool for converting optical coherence tomography angiography (OCTA) data.
 

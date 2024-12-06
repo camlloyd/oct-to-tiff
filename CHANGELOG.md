@@ -1,12 +1,22 @@
-# Changelog
+# CHANGELOG
 
-## Version 0.4.0
+## v0.5.0 (2024-12-05)
+* Add --log-level optional argument
+* Add type hints
+* Drop support for Python 3.8 and 3.9
+* Update Docker build
+* Add workflow for publishing to Docker Hub
+* Set missing data points to default value of `0`
+
+
+## v0.4.0 (2023-07-18)
 * Add support for extracting segmentation lines
 * Add mutually exclusive group to parser
 * Drop support for Python 3.7
 * Refactoring
 
-## Version 0.3.0
+
+## v0.3.0 (2022-11-13)
 * Add support for Retina Map scan pattern
 * Add support for ONH scan pattern
 * Add basic logging functionality
@@ -15,7 +25,8 @@
 * Update GitHub action versions
 * Refactoring
 
-## Version 0.2.0
+
+## v0.2.0 (2022-03-19)
 * Add support for en face images
 * Add support for segmentation data
 * Add --output optional argument for specifying a custom output directory
@@ -25,8 +36,10 @@
 * Prepare for Zenodo release
 * Refactoring
 
-## Version 0.1.1
+
+## v0.1.1 (2021-12-30)
 * Fixed bug when checking for 3D Disc scan pattern
 
-## Version 0.1.0
+
+## v0.1.0 (2021-11-07)
 * Initial release
