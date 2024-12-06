@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v0.5.0 (2024-12-05)
+## v0.5.0 (2024-12-06)
 * Add --log-level optional argument
 * Add type hints
 * Drop support for Python 3.8 and 3.9
