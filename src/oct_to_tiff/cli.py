@@ -51,26 +51,6 @@ def reshape_volume(
     return volume
 
 
-def rotate_volume(
-    volume: NDArray[Any],
-) -> NDArray[Any]:
-    """Rotate a 3-dimensional array 90 degrees left (anti-clockwise) about the z-axis.
-
-    Parameters
-    ----------
-    volume : NDArray[Any]
-        A 3-dimensional array.
-
-    Returns
-    -------
-    volume : NDArray[Any]
-        A rotated version of the input volume.
-
-    """
-    volume = np.rot90(volume, k=1, axes=(1, 2))
-    return volume
-
-
 def write_volume(
     output_path: Path,
     volume: NDArray[Any],
@@ -465,7 +445,7 @@ def main() -> None:
         )
 
         if not args.en_face and not args.seg_curve:
-            volume = rotate_volume(volume)
+            volume = np.rot90(volume, k=1, axes=(1, 2))
 
         write_volume(output_path, volume, pixel_size_x, pixel_size_y, pixel_size_z)
 
