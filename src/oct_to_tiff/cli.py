@@ -187,7 +187,7 @@ def main() -> None:
 
     if Path.is_file(output_path):
         if args.overwrite:
-            pass
+            logger.warning(f"Overwriting {output_path}")
         else:
             logger.error(f"{output_path} already exists.")
             return
