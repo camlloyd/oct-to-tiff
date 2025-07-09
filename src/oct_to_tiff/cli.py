@@ -237,6 +237,32 @@ def main() -> None:
             pixel_size_x = 0.007797
             pixel_size_y = 0.003071
             pixel_size_z = 0.040000
+
+            volume = reshape_volume(
+                volume,
+                frames_per_data_group,
+                total_data_groups,
+                oct_window_height,
+                xy_scan_length,
+            )
+            volume = np.rot90(volume, k=1, axes=(1, 2))
+            volume_main = volume[:101]
+            volume_align = volume[101:frames_per_data_group]
+            align_path = dir_name / (file_name + "_Align.ome.tif")
+            pixel_size_x_align = 0.003899
+            pixel_size_y_align = 0.003071
+            pixel_size_z_align = 0.040000
+            write_volume(
+                output_path, volume_main, pixel_size_x, pixel_size_y, pixel_size_z
+            )
+            write_volume(
+                align_path,
+                volume_align,
+                pixel_size_x_align,
+                pixel_size_y_align,
+                pixel_size_z_align,
+            )
+            return
         elif "3D Disc" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 106
