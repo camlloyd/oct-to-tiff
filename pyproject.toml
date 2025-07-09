@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools >= 77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -15,12 +15,12 @@ authors = [{name = "Cameron Lloyd", email = "lloyd@med.unideb.hu"}]
 maintainers = [{name = "Cameron Lloyd", email = "lloyd@med.unideb.hu"}]
 description = "A command line tool for converting optical coherence tomography angiography (OCTA) data."
 readme = "README.md"
-license = {file = "LICENSE.txt"}
+license = "BSD-3-Clause"
+license-files = ["LICEN[CS]E.*"]
 keywords = ["angiography", "cli", "oct", "octa"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: BSD License",
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
