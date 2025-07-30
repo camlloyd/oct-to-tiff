@@ -8,6 +8,7 @@ import defusedxml.ElementTree as DET
 import numpy as np
 import tifffile
 from numpy.typing import NDArray
+from roifile import ROI_TYPE, ImagejRoi, roiwrite
 
 logger = logging.getLogger(__name__)
 
@@ -90,7 +91,7 @@ def write_volume(
     )
 
 
-def extract_boundaries(input_path: str | Path) -> None:
+def boundaries_to_arrays(input_path: str | Path) -> list[NDArray]:
     """Extract segmentation lines.
 
     Parameters
@@ -98,6 +99,10 @@ def extract_boundaries(input_path: str | Path) -> None:
     input_path : str | Path
         The specified input path.
 
+    Returns
+    -------
+    arrays : list[NDArray]
+        A list of 2-dimensional arrays.
     """
     input_path = Path(input_path)
     tree = DET.parse(input_path)
@@ -108,14 +113,36 @@ def extract_boundaries(input_path: str | Path) -> None:
         int(point.text) if point.text else 0
         for point in root.findall("./Curve_Set/Image/Curve/D")
     ]
-    scan_length = np.arange(len(data_points))
-    num_files = len(data_points) // array_size
-    for i in range(num_files):
+    num_arrays = len(data_points) // array_size
+
+    arrays = []
+    for i in range(num_arrays):
         start = i * array_size
         end = start + array_size
-        table = np.column_stack([scan_length[start:end], data_points[start:end]])
-        table_path = f"{input_path.parent}/{input_path.stem}_{i+1}.txt"
-        np.savetxt(table_path, table, delimiter="\t", fmt="%d")
+        array = np.column_stack([np.arange(array_size), data_points[start:end]])
+        arrays.append(array)
+
+    return arrays
+
+
+def arrays_to_rois(arrays: list[NDArray], output_path: Path) -> None:
+    """
+    Convert a list of 2-dimensional arrays to ImageJ ROIs (ZIP file).
+
+    Parameters
+    ----------
+    arrays : list[NDArray]
+        A list of 2-dimensional arrays.
+    output_path : Path
+        The specified output path.
+    """
+    rois = []
+    for array in arrays:
+        roi = ImagejRoi.frompoints(array)
+        roi.roitype = ROI_TYPE(4)  # FREELINE
+        rois.append(roi)
+
+    roiwrite(output_path, rois, mode="w")
 
 
 def main() -> None:
@@ -182,7 +209,10 @@ def main() -> None:
     else:
         dir_name = input_path.parent
     file_name = input_path.stem
-    file_extension = ".ome.tif"
+    if args.boundaries:
+        file_extension = "_rois.zip"
+    else:
+        file_extension = ".ome.tif"
     output_path = dir_name / (file_name + file_extension)
 
     if Path.is_file(output_path):
@@ -193,7 +223,8 @@ def main() -> None:
             return
 
     if args.boundaries:
-        extract_boundaries(input_path)
+        arrays = boundaries_to_arrays(input_path)
+        arrays_to_rois(arrays, output_path)
         return
 
     with open(input_path, "rb") as f:
