@@ -42,7 +42,7 @@ jobs:
     # Dedicated environments with protections for publishing are strongly recommended.
     environment:
       name: testpypi
-      url: https://test.pypi.org/p/oct-to-tiff
+      # url: https://test.pypi.org/p/oct-to-tiff
 
     steps:
       - name: Retrieve release distributions
