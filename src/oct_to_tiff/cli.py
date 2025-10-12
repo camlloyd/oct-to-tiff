@@ -6,25 +6,25 @@ from typing import Any
 
 import defusedxml.ElementTree as DET
 import numpy as np
+import numpy.typing as npt
 import tifffile
-from numpy.typing import NDArray
 from roifile import ROI_TYPE, ImagejRoi, roiwrite
 
 logger = logging.getLogger(__name__)
 
 
 def reshape_volume(
-    volume: NDArray[Any],
+    volume: npt.NDArray[Any],
     frames_per_data_group: int,
     total_data_groups: int,
     oct_window_height: int,
     xy_scan_length: int,
-) -> NDArray[Any]:
+) -> npt.NDArray[Any]:
     """Reshape a 1-dimensional array to a 3-dimensional array.
 
     Parameters
     ----------
-    volume : NDArray[Any]
+    volume : npt.NDArray[Any]
         A 1-dimensional array.
     frames_per_data_group : int
         The number of frames per data group.
@@ -37,7 +37,7 @@ def reshape_volume(
 
     Returns
     -------
-    volume : NDArray[Any]
+    volume : npt.NDArray[Any]
         A 3-dimensional array.
 
     """
@@ -54,7 +54,7 @@ def reshape_volume(
 
 def write_volume(
     output_path: Path,
-    volume: NDArray[Any],
+    volume: npt.NDArray[Any],
     pixel_size_x: float,
     pixel_size_y: float,
     pixel_size_z: float,
@@ -65,7 +65,7 @@ def write_volume(
     ----------
     output_path : Path
         The specified output path.
-    volume : NDArray[Any]
+    volume : npt.NDArray[Any]
         A 3-dimensional array.
     pixel_size_x : float
         The pixel (voxel) width in mm.
@@ -91,7 +91,7 @@ def write_volume(
     )
 
 
-def boundaries_to_arrays(input_path: str | Path) -> list[NDArray]:
+def boundaries_to_arrays(input_path: str | Path) -> list[npt.NDArray[np.int_]]:
     """Extract segmentation lines.
 
     Parameters
@@ -101,7 +101,7 @@ def boundaries_to_arrays(input_path: str | Path) -> list[NDArray]:
 
     Returns
     -------
-    arrays : list[NDArray]
+    arrays : list[npt.NDArray[np.int_]]
         A list of 2-dimensional arrays.
     """
     input_path = Path(input_path)
@@ -125,13 +125,13 @@ def boundaries_to_arrays(input_path: str | Path) -> list[NDArray]:
     return arrays
 
 
-def arrays_to_rois(arrays: list[NDArray], output_path: Path) -> None:
+def arrays_to_rois(arrays: list[npt.NDArray[np.int_]], output_path: Path) -> None:
     """
     Convert a list of 2-dimensional arrays to ImageJ ROIs (ZIP file).
 
     Parameters
     ----------
-    arrays : list[NDArray]
+    arrays : list[npt.NDArray[np.int_]]
         A list of 2-dimensional arrays.
     output_path : Path
         The specified output path.
