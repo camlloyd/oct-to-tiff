@@ -91,7 +91,7 @@ def write_volume(
     )
 
 
-def boundaries_to_arrays(input_path: str | Path) -> list[npt.NDArray]:
+def boundaries_to_arrays(input_path: str | Path) -> list[npt.NDArray[np.int_]]:
     """Extract segmentation lines.
 
     Parameters
@@ -101,7 +101,7 @@ def boundaries_to_arrays(input_path: str | Path) -> list[npt.NDArray]:
 
     Returns
     -------
-    arrays : list[npt.NDArray]
+    arrays : list[npt.NDArray[np.int_]]
         A list of 2-dimensional arrays.
     """
     input_path = Path(input_path)
@@ -125,13 +125,13 @@ def boundaries_to_arrays(input_path: str | Path) -> list[npt.NDArray]:
     return arrays
 
 
-def arrays_to_rois(arrays: list[npt.NDArray], output_path: Path) -> None:
+def arrays_to_rois(arrays: list[npt.NDArray[np.int_]], output_path: Path) -> None:
     """
     Convert a list of 2-dimensional arrays to ImageJ ROIs (ZIP file).
 
     Parameters
     ----------
-    arrays : list[npt.NDArray]
+    arrays : list[npt.NDArray[np.int_]]
         A list of 2-dimensional arrays.
     output_path : Path
         The specified output path.
