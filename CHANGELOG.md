@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v0.6.0 (2025-10-12)
+* Remove `rotate_volume()` helper function
+* Warn when using `--overwrite`
+* Split 3D Cornea `Main` and `Align` scans
+* Add support for ImageJ ROIs
+* Drop support for Python 3.10
+* Refactoring
+
+
 ## v0.5.0 (2024-12-06)
 * Add --log-level optional argument
 * Add type hints
