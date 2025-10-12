@@ -1,5 +1,7 @@
 # CHANGELOG
 
+<!-- version list -->
+
 ## v0.6.0 (2025-10-12)
 * Remove `rotate_volume()` helper function
 * Warn when using `--overwrite`
