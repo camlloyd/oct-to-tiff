@@ -46,6 +46,9 @@ Changelog = "https://github.com/camlloyd/oct-to-tiff/blob/main/CHANGELOG.md"
 [project.scripts]
 oct-to-tiff = "oct_to_tiff.cli:main"
 
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
