@@ -52,6 +52,38 @@ def reshape_volume(
     return volume
 
 
+def volume_metadata(
+    pixel_size_x: float,
+    pixel_size_y: float,
+    pixel_size_z: float,
+) -> dict[str, Any]:
+    """Build a dictionary of metadata.
+
+    Parameters
+    ----------
+    pixel_size_x : float
+        The pixel (voxel) width in mm.
+    pixel_size_y : float
+        The pixel (voxel) height in mm.
+    pixel_size_z : float
+        The pixel (voxel) depth in mm.
+
+    Returns
+    -------
+    metadata : dict[str, Any]
+        A dictionary of metadata.
+
+    """
+    metadata: dict[str, Any] = {"axes": "ZYX"}
+    metadata["PhysicalSizeX"] = pixel_size_x
+    metadata["PhysicalSizeXUnit"] = "mm"
+    metadata["PhysicalSizeY"] = pixel_size_y
+    metadata["PhysicalSizeYUnit"] = "mm"
+    metadata["PhysicalSizeZ"] = pixel_size_z
+    metadata["PhysicalSizeZUnit"] = "mm"
+    return metadata
+
+
 def write_volume(
     output_path: Path,
     volume: npt.NDArray[Any],
@@ -79,15 +111,7 @@ def write_volume(
         output_path,
         volume,
         photometric="minisblack",
-        metadata={
-            "axes": "ZYX",
-            "PhysicalSizeX": pixel_size_x,
-            "PhysicalSizeXUnit": "mm",
-            "PhysicalSizeY": pixel_size_y,
-            "PhysicalSizeYUnit": "mm",
-            "PhysicalSizeZ": pixel_size_z,
-            "PhysicalSizeZUnit": "mm",
-        },
+        metadata=volume_metadata(pixel_size_x, pixel_size_y, pixel_size_z),
     )
 
 
