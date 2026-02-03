@@ -2,6 +2,46 @@
 
 <!-- version list -->
 
+## v0.6.1 (2026-02-03)
+
+### Bug Fixes
+
+- **cli**: Allow pixel size to be `None`
+  ([`98030b9`](https://github.com/camlloyd/oct-to-tiff/commit/98030b9442044025e00b669b9f0b80796fcb3079))
+
+### Build System
+
+- Use uv build backend
+  ([`dc96917`](https://github.com/camlloyd/oct-to-tiff/commit/dc969173207bffb836a718999e0c057fa26389f2))
+
+- **dockerfile**: Bump python version to 3.11.14
+  ([`1faabef`](https://github.com/camlloyd/oct-to-tiff/commit/1faabeff8571b3638a0f2fd82b6076e9b2815348))
+
+- **dockerignore**: Relax excluded files for uv
+  ([`f4eb716`](https://github.com/camlloyd/oct-to-tiff/commit/f4eb716b10841f2ce994dcd5c2e4049e6cce55c4))
+
+- **pyproject**: Bump uv build version to 0.9.26
+  ([`3f3a1a8`](https://github.com/camlloyd/oct-to-tiff/commit/3f3a1a8e51da5fdf97f8937b24a30dd28acb7849))
+
+### Chores
+
+- **config**: Allow zero version
+  ([`9765198`](https://github.com/camlloyd/oct-to-tiff/commit/97651986b83315440543dbe8e6b62d65a41b5fae))
+
+- **config**: Configure Python Semantic Release
+  ([`4a28651`](https://github.com/camlloyd/oct-to-tiff/commit/4a286510feec829888cdc05e9d7639523c2e9a0a))
+
+### Documentation
+
+- **readme**: Update installation via conda
+  ([`2fd6a88`](https://github.com/camlloyd/oct-to-tiff/commit/2fd6a888a7c910aa58b6736571533b238d6a9f16))
+
+### Refactoring
+
+- **cli**: Separate metadata
+  ([`4068d17`](https://github.com/camlloyd/oct-to-tiff/commit/4068d1786587673e9f0073015e4b4e168d8f4623))
+
+
 ## v0.6.0 (2025-10-12)
 * Remove `rotate_volume()` helper function
 * Warn when using `--overwrite`
