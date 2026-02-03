@@ -53,19 +53,19 @@ def reshape_volume(
 
 
 def volume_metadata(
-    pixel_size_x: float,
-    pixel_size_y: float,
-    pixel_size_z: float,
+    pixel_size_x: float | None,
+    pixel_size_y: float | None,
+    pixel_size_z: float | None,
 ) -> dict[str, Any]:
     """Build a dictionary of metadata.
 
     Parameters
     ----------
-    pixel_size_x : float
+    pixel_size_x : float | None
         The pixel (voxel) width in mm.
-    pixel_size_y : float
+    pixel_size_y : float | None
         The pixel (voxel) height in mm.
-    pixel_size_z : float
+    pixel_size_z : float | None
         The pixel (voxel) depth in mm.
 
     Returns
@@ -75,21 +75,24 @@ def volume_metadata(
 
     """
     metadata: dict[str, Any] = {"axes": "ZYX"}
-    metadata["PhysicalSizeX"] = pixel_size_x
-    metadata["PhysicalSizeXUnit"] = "mm"
-    metadata["PhysicalSizeY"] = pixel_size_y
-    metadata["PhysicalSizeYUnit"] = "mm"
-    metadata["PhysicalSizeZ"] = pixel_size_z
-    metadata["PhysicalSizeZUnit"] = "mm"
+    if pixel_size_x is not None:
+        metadata["PhysicalSizeX"] = pixel_size_x
+        metadata["PhysicalSizeXUnit"] = "mm"
+    if pixel_size_y is not None:
+        metadata["PhysicalSizeY"] = pixel_size_y
+        metadata["PhysicalSizeYUnit"] = "mm"
+    if pixel_size_z is not None:
+        metadata["PhysicalSizeZ"] = pixel_size_z
+        metadata["PhysicalSizeZUnit"] = "mm"
     return metadata
 
 
 def write_volume(
     output_path: Path,
     volume: npt.NDArray[Any],
-    pixel_size_x: float,
-    pixel_size_y: float,
-    pixel_size_z: float,
+    pixel_size_x: float | None,
+    pixel_size_y: float | None,
+    pixel_size_z: float | None,
 ) -> None:
     """Write a 3-dimensional array to the output path as an OME-TIFF file, including voxel size in the metadata.
 
@@ -269,7 +272,7 @@ def main() -> None:
             xy_scan_length = int(len(volume) ** 0.5)
             pixel_size_x = args.size / oct_window_height
             pixel_size_y = args.size / xy_scan_length
-            pixel_size_z = 1
+            pixel_size_z = None
         elif args.seg_curve:
             volume = np.frombuffer(f.read(), dtype=np.single)
             if len(volume) == 1280000 or len(volume) == 1120000:
@@ -280,9 +283,9 @@ def main() -> None:
                 oct_window_height = 304
             total_data_groups = 1
             xy_scan_length = len(volume) // (frames_per_data_group * oct_window_height)
-            pixel_size_x = 1
-            pixel_size_y = 1
-            pixel_size_z = 1
+            pixel_size_x = None
+            pixel_size_y = None
+            pixel_size_z = None
         elif "3D Cornea" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 106
@@ -362,7 +365,7 @@ def main() -> None:
             xy_scan_length = 1020
             pixel_size_x = 0.002941
             pixel_size_y = 0.003071
-            pixel_size_z = 1
+            pixel_size_z = None
         elif "Cornea Cross Line" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 2
@@ -371,7 +374,7 @@ def main() -> None:
             xy_scan_length = 941
             pixel_size_x = 0.008502
             pixel_size_y = 0.003071
-            pixel_size_z = 1
+            pixel_size_z = None
         elif "Cornea Line" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 1
@@ -380,7 +383,7 @@ def main() -> None:
             xy_scan_length = 1020
             pixel_size_x = 0.007843
             pixel_size_y = 0.003071
-            pixel_size_z = 1
+            pixel_size_z = None
         elif "Cross Line" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 2
@@ -389,7 +392,7 @@ def main() -> None:
             xy_scan_length = 1020
             pixel_size_x = 0.009804
             pixel_size_y = 0.003071
-            pixel_size_z = 1
+            pixel_size_z = None
         elif "Enhanced HD Line" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 1
@@ -398,7 +401,7 @@ def main() -> None:
             xy_scan_length = 998
             pixel_size_x = 0.012024
             pixel_size_y = 0.003071
-            pixel_size_z = 1
+            pixel_size_z = None
         elif "GCC" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 16
@@ -407,7 +410,7 @@ def main() -> None:
             xy_scan_length = 933
             pixel_size_x = 0.007503
             pixel_size_y = 0.003071
-            pixel_size_z = 1
+            pixel_size_z = None
         elif "Grid" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 10
@@ -416,7 +419,7 @@ def main() -> None:
             xy_scan_length = 1020
             pixel_size_x = 0.005882
             pixel_size_y = 0.003071
-            pixel_size_z = 1
+            pixel_size_z = None
         elif "HD Angio Disc" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 400
@@ -470,7 +473,7 @@ def main() -> None:
             xy_scan_length = 1024
             pixel_size_x = 0.009766
             pixel_size_y = 0.003071
-            pixel_size_z = 1
+            pixel_size_z = None
         elif "Line" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 1
@@ -479,7 +482,7 @@ def main() -> None:
             xy_scan_length = 1020
             pixel_size_x = 0.008824
             pixel_size_y = 0.003071
-            pixel_size_z = 1
+            pixel_size_z = None
         elif "ONH" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single, count=2223360)
             frames_per_data_group = 3
@@ -488,7 +491,7 @@ def main() -> None:
             xy_scan_length = 965
             pixel_size_x = 0.015952
             pixel_size_y = 0.003071
-            pixel_size_z = 1
+            pixel_size_z = None
         elif "PachymetryWide" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 16
@@ -497,7 +500,7 @@ def main() -> None:
             xy_scan_length = 1536
             pixel_size_x = 0.005859
             pixel_size_y = 0.003071
-            pixel_size_z = 1
+            pixel_size_z = None
         elif "Raster" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single)
             frames_per_data_group = 21
@@ -506,7 +509,7 @@ def main() -> None:
             xy_scan_length = 1020
             pixel_size_x = 0.011765
             pixel_size_y = 0.003071
-            pixel_size_z = 1
+            pixel_size_z = None
         elif "Retina Map" in file_name:
             volume = np.frombuffer(f.read(), dtype=np.single, count=6680960)
             frames_per_data_group = 13
@@ -515,7 +518,7 @@ def main() -> None:
             xy_scan_length = 803
             pixel_size_x = 0.007472
             pixel_size_y = 0.003071
-            pixel_size_z = 1
+            pixel_size_z = None
 
         volume = reshape_volume(
             volume,
