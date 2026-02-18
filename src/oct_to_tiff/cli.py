@@ -102,11 +102,11 @@ def write_volume(
         The specified output path.
     volume : npt.NDArray[Any]
         A 3-dimensional array.
-    pixel_size_x : float
+    pixel_size_x : float | None
         The pixel (voxel) width in mm.
-    pixel_size_y : float
+    pixel_size_y : float | None
         The pixel (voxel) height in mm.
-    pixel_size_z : float
+    pixel_size_z : float | None
         The pixel (voxel) depth in mm.
 
     """
