@@ -130,6 +130,7 @@ def boundaries_to_arrays(input_path: str | Path) -> list[npt.NDArray[np.int_]]:
     -------
     arrays : list[npt.NDArray[np.int_]]
         A list of 2-dimensional arrays.
+
     """
     input_path = Path(input_path)
     tree = DET.parse(input_path)
@@ -153,8 +154,7 @@ def boundaries_to_arrays(input_path: str | Path) -> list[npt.NDArray[np.int_]]:
 
 
 def arrays_to_rois(arrays: list[npt.NDArray[np.int_]], output_path: Path) -> None:
-    """
-    Convert a list of 2-dimensional arrays to ImageJ ROIs (ZIP file).
+    """Convert a list of 2-dimensional arrays to ImageJ ROIs (ZIP file).
 
     Parameters
     ----------
@@ -162,6 +162,7 @@ def arrays_to_rois(arrays: list[npt.NDArray[np.int_]], output_path: Path) -> Non
         A list of 2-dimensional arrays.
     output_path : Path
         The specified output path.
+
     """
     rois = []
     for array in arrays:
