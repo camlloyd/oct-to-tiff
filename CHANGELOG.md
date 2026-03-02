@@ -2,6 +2,27 @@
 
 <!-- version list -->
 
+## v0.6.2 (2026-03-02)
+
+### Bug Fixes
+
+- **cli**: Raise error if scan pattern not found
+  ([`d8bc512`](https://github.com/camlloyd/oct-to-tiff/commit/d8bc5126e0b45b7da3d1caabf239b0b3f6de7632))
+
+### Code Style
+
+- **cli**: Format docstrings
+  ([`f5cad41`](https://github.com/camlloyd/oct-to-tiff/commit/f5cad41fc04e1536404be4c391593b9fb70197af))
+
+### Documentation
+
+- **citation**: Update CITATION.cff
+  ([`916d5bd`](https://github.com/camlloyd/oct-to-tiff/commit/916d5bd936b8c6c7eebad9c1292aadb5d5d77e8a))
+
+- **cli**: Update `write_volume` docstring
+  ([`63ab2a1`](https://github.com/camlloyd/oct-to-tiff/commit/63ab2a1546aa04b5c7f6d23cc009ee6778d06a90))
+
+
 ## v0.6.1 (2026-02-03)
 
 ### Bug Fixes
