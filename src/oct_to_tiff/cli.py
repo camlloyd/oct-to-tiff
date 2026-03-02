@@ -520,6 +520,10 @@ def main() -> None:
             pixel_size_x = 0.007472
             pixel_size_y = 0.003071
             pixel_size_z = None
+        else:
+            raise ValueError(
+                f"Could not find a supported scan pattern in file name: {file_name}"
+            )
 
         volume = reshape_volume(
             volume,
