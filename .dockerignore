@@ -2,6 +2,7 @@
 **/__pycache__
 **/.venv
 **/.classpath
+**/.coverage
 **/.dockerignore
 **/.env
 **/.git
@@ -9,6 +10,7 @@
 **/.gitignore
 **/.pre-commit-config.yaml
 **/.project
+**/.pytest_cache
 **/.settings
 **/.toolstarget
 **/.vs
@@ -21,10 +23,12 @@
 **/docker-compose*
 **/compose.y*ml
 **/Dockerfile*
+**/htmlcov
 **/node_modules
 **/npm-debug.log
 **/obj
 **/secrets.dev.yaml
+**/tests
 **/values.dev.yaml
 CHANGELOG.md
 CITATION.cff
