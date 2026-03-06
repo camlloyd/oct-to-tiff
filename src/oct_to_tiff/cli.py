@@ -266,7 +266,7 @@ def main() -> None:
             pixel_size_y = 0.012283
             pixel_size_z = args.size / frames_per_data_group
         elif args.en_face and args.size:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 1
             total_data_groups = 1
             oct_window_height = int(len(volume) ** 0.5)
@@ -275,7 +275,7 @@ def main() -> None:
             pixel_size_y = args.size / xy_scan_length
             pixel_size_z = None
         elif args.seg_curve:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             if len(volume) == 1280000 or len(volume) == 1120000:
                 frames_per_data_group = 400
                 oct_window_height = 400
@@ -288,7 +288,7 @@ def main() -> None:
             pixel_size_y = None
             pixel_size_z = None
         elif "3D Cornea" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 106
             total_data_groups = 1
             oct_window_height = 640
@@ -323,7 +323,7 @@ def main() -> None:
             )
             return
         elif "3D Disc" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 106
             total_data_groups = 1
             oct_window_height = 768
@@ -332,7 +332,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = 0.060000
         elif "3D Retina" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 144
             total_data_groups = 1
             oct_window_height = 640
@@ -341,7 +341,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = 0.050000
         elif "3D Widefield MCT" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 320
             total_data_groups = 1
             oct_window_height = 768
@@ -350,7 +350,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = 0.028125
         elif "3D Widefield" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 323
             total_data_groups = 1
             oct_window_height = 768
@@ -359,7 +359,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = 0.028125
         elif "Angle" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 1
             total_data_groups = 2
             oct_window_height = 768
@@ -368,7 +368,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = None
         elif "Cornea Cross Line" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 2
             total_data_groups = 2
             oct_window_height = 640
@@ -377,7 +377,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = None
         elif "Cornea Line" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 1
             total_data_groups = 2
             oct_window_height = 640
@@ -386,7 +386,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = None
         elif "Cross Line" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 2
             total_data_groups = 2
             oct_window_height = 768
@@ -395,7 +395,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = None
         elif "Enhanced HD Line" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 1
             total_data_groups = 2
             oct_window_height = 960
@@ -404,7 +404,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = None
         elif "GCC" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 16
             total_data_groups = 1
             oct_window_height = 640
@@ -413,7 +413,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = None
         elif "Grid" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 10
             total_data_groups = 1
             oct_window_height = 640
@@ -422,7 +422,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = None
         elif "HD Angio Disc" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 400
             total_data_groups = 1
             oct_window_height = 640
@@ -434,7 +434,7 @@ def main() -> None:
                 pixel_size_x = args.size / xy_scan_length
                 pixel_size_z = args.size / frames_per_data_group
         elif "Angio Disc" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 304
             total_data_groups = 1
             oct_window_height = 640
@@ -446,7 +446,7 @@ def main() -> None:
                 pixel_size_x = args.size / xy_scan_length
                 pixel_size_z = args.size / frames_per_data_group
         elif "HD Angio Retina" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 400
             total_data_groups = 1
             oct_window_height = 640
@@ -455,7 +455,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = 0.015000
         elif "Angio Retina" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 304
             total_data_groups = 1
             oct_window_height = 640
@@ -467,7 +467,7 @@ def main() -> None:
                 pixel_size_x = args.size / xy_scan_length
                 pixel_size_z = args.size / frames_per_data_group
         elif "Radial Lines" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 18
             total_data_groups = 1
             oct_window_height = 640
@@ -476,7 +476,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = None
         elif "Line" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 1
             total_data_groups = 2
             oct_window_height = 960
@@ -485,7 +485,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = None
         elif "ONH" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single, count=2223360)
+            volume = np.frombuffer(f.read(), dtype=np.float32, count=2223360)
             frames_per_data_group = 3
             total_data_groups = 1
             oct_window_height = 768
@@ -494,7 +494,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = None
         elif "PachymetryWide" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 16
             total_data_groups = 1
             oct_window_height = 640
@@ -503,7 +503,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = None
         elif "Raster" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single)
+            volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 21
             total_data_groups = 1
             oct_window_height = 768
@@ -512,7 +512,7 @@ def main() -> None:
             pixel_size_y = 0.003071
             pixel_size_z = None
         elif "Retina Map" in file_name:
-            volume = np.frombuffer(f.read(), dtype=np.single, count=6680960)
+            volume = np.frombuffer(f.read(), dtype=np.float32, count=6680960)
             frames_per_data_group = 13
             total_data_groups = 1
             oct_window_height = 640
