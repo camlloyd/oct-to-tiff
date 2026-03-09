@@ -2,7 +2,7 @@ from pathlib import Path
 
 import numpy as np
 
-from oct_to_tiff.cli import boundaries_to_arrays, reshape_volume
+from oct_to_tiff.cli import boundaries_to_arrays, reshape_volume, volume_metadata
 
 
 def test_boundaries_to_arrays_returns_arrays_from_curve_xml(tmp_path: Path) -> None:
@@ -63,3 +63,39 @@ def test_reshape_volume_returns_3d_array_from_1d_array() -> None:
         dtype=np.float32,
     )
     np.testing.assert_array_equal(result, expected)
+
+
+def test_volume_metadata_returns_axes_only_when_pixel_sizes_are_none() -> None:
+    # Arrange
+    pixel_size_x = None
+    pixel_size_y = None
+    pixel_size_z = None
+
+    # Act
+    result = volume_metadata(pixel_size_x, pixel_size_y, pixel_size_z)
+
+    # Assert
+    expected = {"axes": "ZYX"}
+    assert result == expected
+
+
+def test_volume_metadata_returns_physical_sizes_and_units() -> None:
+    # Arrange
+    pixel_size_x = 0.01
+    pixel_size_y = 0.02
+    pixel_size_z = 0.03
+
+    # Act
+    result = volume_metadata(pixel_size_x, pixel_size_y, pixel_size_z)
+
+    # Assert
+    expected = {
+        "axes": "ZYX",
+        "PhysicalSizeX": 0.01,
+        "PhysicalSizeY": 0.02,
+        "PhysicalSizeZ": 0.03,
+        "PhysicalSizeXUnit": "mm",
+        "PhysicalSizeYUnit": "mm",
+        "PhysicalSizeZUnit": "mm",
+    }
+    assert result == expected
