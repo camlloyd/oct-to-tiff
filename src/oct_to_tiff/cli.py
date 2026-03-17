@@ -135,6 +135,8 @@ def boundaries_to_arrays(input_path: str | Path) -> list[npt.NDArray[np.int_]]:
     input_path = Path(input_path)
     tree = DET.parse(input_path)
     root = tree.getroot()
+    if root is None:
+        raise ValueError(f"Could not find root element in {input_path}")
 
     array_size = int(root.findtext("./Curve_Set/Image/Curve/ARRAY", 0))
     data_points = [
