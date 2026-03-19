@@ -258,23 +258,23 @@ def main() -> None:
         return
 
     with open(input_path, "rb") as f:
-        if args.angio and args.size:
+        if args.angio:
             volume = np.frombuffer(f.read(), dtype=np.uint16)
             oct_window_height = 160
             frames_per_data_group = int((len(volume) // oct_window_height) ** 0.5)
             total_data_groups = 1
             xy_scan_length = int((len(volume) // oct_window_height) ** 0.5)
-            pixel_size_x = args.size / xy_scan_length
-            pixel_size_y = 0.012283
-            pixel_size_z = args.size / frames_per_data_group
-        elif args.en_face and args.size:
+            pixel_size_x = args.size / xy_scan_length if args.size else None
+            pixel_size_y = 0.012283 if args.size else None
+            pixel_size_z = args.size / frames_per_data_group if args.size else None
+        elif args.en_face:
             volume = np.frombuffer(f.read(), dtype=np.float32)
             frames_per_data_group = 1
             total_data_groups = 1
             oct_window_height = int(len(volume) ** 0.5)
             xy_scan_length = int(len(volume) ** 0.5)
-            pixel_size_x = args.size / oct_window_height
-            pixel_size_y = args.size / xy_scan_length
+            pixel_size_x = args.size / oct_window_height if args.size else None
+            pixel_size_y = args.size / xy_scan_length if args.size else None
             pixel_size_z = None
         elif args.seg_curve:
             volume = np.frombuffer(f.read(), dtype=np.float32)
