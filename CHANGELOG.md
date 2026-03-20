@@ -2,6 +2,89 @@
 
 <!-- version list -->
 
+## v0.6.3 (2026-03-20)
+
+### Bug Fixes
+
+- **cli**: Make `--size` optional
+  ([`dd2be67`](https://github.com/camlloyd/oct-to-tiff/commit/dd2be67180aad23c04579bd44f36a58affefd613))
+
+- **cli**: Raise error if xml root not found
+  ([`eea3e01`](https://github.com/camlloyd/oct-to-tiff/commit/eea3e0143536d3c70c31f7e19e346965e956ccae))
+
+### Build System
+
+- **docker**: Bump python version to 3.11.15
+  ([`5ea83c3`](https://github.com/camlloyd/oct-to-tiff/commit/5ea83c3f49da513e0b187bd8d22da8cde20f80cf))
+
+- **dockerignore**: Ignore caches
+  ([`067ef94`](https://github.com/camlloyd/oct-to-tiff/commit/067ef943fd3c7c5db2d8ec8fc38a18597b82a256))
+
+- **dockerignore**: Ignore test artifacts
+  ([`6ff2b1d`](https://github.com/camlloyd/oct-to-tiff/commit/6ff2b1dbfc6223ebf13fdc99071b861a9a6ace91))
+
+- **pyproject**: Bump uv build version
+  ([`861fb98`](https://github.com/camlloyd/oct-to-tiff/commit/861fb98972ce72b3d83fd25d182af9d27d13d336))
+
+### Chores
+
+- **issues**: Disable blank issues
+  ([`432025a`](https://github.com/camlloyd/oct-to-tiff/commit/432025a925ccfef71cbcd5a2ecfc3c4848008ce4))
+
+- **issues**: Migrate bug report template
+  ([`fae9c64`](https://github.com/camlloyd/oct-to-tiff/commit/fae9c64dc31ab19dab729e9f21e0908859640b09))
+
+- **issues**: Migrate feature request template
+  ([`913e42f`](https://github.com/camlloyd/oct-to-tiff/commit/913e42fc6b982121ed15b30620a79b18188d6b83))
+
+- **pre-commit**: Bump hook versions
+  ([`edce3e7`](https://github.com/camlloyd/oct-to-tiff/commit/edce3e7cd0258e9b9f8f08eb52ba0a606f692c86))
+
+- **pre-commit**: Remove quotes from `ruff-check` hook args
+  ([`6bf1555`](https://github.com/camlloyd/oct-to-tiff/commit/6bf155501c4bed99965557f130582c3b08c44a20))
+
+- **pre-commit**: Use `ruff-check` hook ID
+  ([`5d74a3b`](https://github.com/camlloyd/oct-to-tiff/commit/5d74a3bd7247d663f379411c267f06258fc852aa))
+
+- **pyproject**: Add prek to dev dependencies
+  ([`818f770`](https://github.com/camlloyd/oct-to-tiff/commit/818f7701c1851529eb8b8425cfb03ddddb2f287a))
+
+### Continuous Integration
+
+- Bump actions/attest-build-provenance to v3
+  ([`74723cb`](https://github.com/camlloyd/oct-to-tiff/commit/74723cbd4206a5fd1650be4bd00db818a6fa831f))
+
+- Bump docker/setup-buildx-action to v5
+  ([`554f64e`](https://github.com/camlloyd/oct-to-tiff/commit/554f64ee9aa91cd61f1099e1a23ba227573e78b4))
+
+- Restore TestPyPI URL in deployment status
+  ([`1615185`](https://github.com/camlloyd/oct-to-tiff/commit/1615185de52699e9887d010acb7c77abce6b2627))
+
+### Documentation
+
+- **citation**: Update CITATION.cff
+  ([`185aee0`](https://github.com/camlloyd/oct-to-tiff/commit/185aee0f63cbb710e3e3f5b2c5a34315d3fe0b5f))
+
+- **readme**: Recommend installation via uv
+  ([`9e6ae81`](https://github.com/camlloyd/oct-to-tiff/commit/9e6ae8163028145905cac658fe9c80b3e571e808))
+
+### Refactoring
+
+- **cli**: Prefer canonical name for `float`
+  ([`4e02458`](https://github.com/camlloyd/oct-to-tiff/commit/4e024580132fd920deef98798d823c2be1a16c17))
+
+### Testing
+
+- **cli**: Add unit test for `boundaries_to_arrays`
+  ([`e0ddb44`](https://github.com/camlloyd/oct-to-tiff/commit/e0ddb44a66cccebc3e2020ea292ee16dfeef8898))
+
+- **cli**: Add unit test for `reshape_volume`
+  ([`1cde0bd`](https://github.com/camlloyd/oct-to-tiff/commit/1cde0bda0e080c168eb8dc624808d430895d71ec))
+
+- **cli**: Add unit tests for volume_metadata
+  ([`96af8f9`](https://github.com/camlloyd/oct-to-tiff/commit/96af8f919cdb4ca2acede4864ed9a0e9245fdfd0))
+
+
 ## v0.6.2 (2026-03-02)
 
 ### Bug Fixes
