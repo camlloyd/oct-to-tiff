@@ -118,12 +118,12 @@ def write_volume(
     )
 
 
-def boundaries_to_arrays(input_path: str | Path) -> list[npt.NDArray[np.int_]]:
+def boundaries_to_arrays(input_path: Path) -> list[npt.NDArray[np.int_]]:
     """Extract segmentation lines.
 
     Parameters
     ----------
-    input_path : str | Path
+    input_path : Path
         The specified input path.
 
     Returns
@@ -132,7 +132,6 @@ def boundaries_to_arrays(input_path: str | Path) -> list[npt.NDArray[np.int_]]:
         A list of 2-dimensional arrays.
 
     """
-    input_path = Path(input_path)
     tree = DET.parse(input_path)
     root = tree.getroot()
     if root is None:
