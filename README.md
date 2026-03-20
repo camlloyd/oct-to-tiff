@@ -120,9 +120,7 @@ Sets the correct voxel size for scan patterns with adjustable length.
 #### The following options are mutually exclusive:
     
 #### `--angio`
-**Description**: convert extracted OCTA data. 
-
-Requires `--size SIZE`.
+**Description**: convert extracted OCTA data.
 
 **Usage**:
 
@@ -130,8 +128,6 @@ Requires `--size SIZE`.
     
 #### `--en-face`
 **Description**: convert extracted en face data.
-
-Requires `--size SIZE`.
 
 **Usage**:
 
