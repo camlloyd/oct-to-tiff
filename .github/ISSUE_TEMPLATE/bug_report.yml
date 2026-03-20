@@ -1,0 +1,42 @@
+name: Bug report
+description: Create a report to help us improve
+title: "[Bug]: "
+labels: []
+assignees: []
+body:
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have checked that the [latest version](https://github.com/camlloyd/oct-to-tiff/releases/latest) does not solve this issue.
+          required: true
+        - label: I have checked the [issues](https://github.com/camlloyd/oct-to-tiff/issues) for similar issues.
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+      placeholder: Describe the bug...
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        oct-to-tiff <ARGS>
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        - oct-to-tiff version: (e.g. oct-to-tiff 0.6.2)
+        - Python version: (e.g. Python 3.11.0)
+        - OS and version: (e.g. Windows 11 25H2, macOS Sequoia 15.7.4, 24.04.4 LTS)
+    validations:
+      required: true
