@@ -5,6 +5,6 @@ authors:
     given-names: Cameron
     orcid: https://orcid.org/0000-0003-1055-2282
 title: "oct-to-tiff: A command line tool for converting optical coherence tomography angiography (OCTA) data."
-version: 0.6.2
-doi: 10.5281/zenodo.18838831
-date-released: 2026-03-02
+version: 0.6.3
+doi: 10.5281/zenodo.19133778
+date-released: 2026-03-20
