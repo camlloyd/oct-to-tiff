@@ -169,7 +169,7 @@ def arrays_to_rois(arrays: list[npt.NDArray[np.int_]], output_path: Path) -> Non
     rois = []
     for array in arrays:
         roi = ImagejRoi.frompoints(array)
-        roi.roitype = ROI_TYPE(4)  # FREELINE
+        roi.roitype = ROI_TYPE.FREELINE
         rois.append(roi)
 
     roiwrite(output_path, rois, mode="w")
