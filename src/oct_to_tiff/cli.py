@@ -1,5 +1,6 @@
 import argparse
 import logging
+import sys
 from importlib.metadata import version
 from pathlib import Path
 from typing import Any
@@ -231,6 +232,10 @@ def main() -> None:
         format="%(asctime)s %(name)s:%(funcName)s %(levelname)s - %(message)s",
     )
 
+    if args.size is not None and args.size > 12:
+        logger.error("--size cannot be greater than 12 mm")
+        sys.exit(1)
+
     input_path = args.input
     if args.output:
         dir_name = args.output
@@ -249,7 +254,7 @@ def main() -> None:
             logger.warning(f"Overwriting {output_path}")
         else:
             logger.error(f"{output_path} already exists.")
-            return
+            sys.exit(1)
 
     if args.boundaries:
         arrays = boundaries_to_arrays(input_path)
@@ -283,6 +288,10 @@ def main() -> None:
             elif len(volume) in (304 * 304 * 8, 304 * 304 * 7):
                 frames_per_data_group = 304
                 oct_window_height = 304
+            else:
+                raise ValueError(
+                    f"Could not find a supported scan pattern for volume length: {len(volume)}"
+                )
             total_data_groups = 1
             xy_scan_length = len(volume) // (frames_per_data_group * oct_window_height)
             pixel_size_x = None
