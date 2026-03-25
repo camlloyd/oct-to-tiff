@@ -232,6 +232,10 @@ def main() -> None:
         format="%(asctime)s %(name)s:%(funcName)s %(levelname)s - %(message)s",
     )
 
+    if args.size is not None and args.size > 12:
+        logger.error("--size cannot be greater than 12 mm")
+        sys.exit(1)
+
     input_path = args.input
     if args.output:
         dir_name = args.output
