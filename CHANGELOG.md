@@ -2,6 +2,66 @@
 
 <!-- version list -->
 
+## v0.6.4 (2026-03-25)
+
+### Bug Fixes
+
+- **cli**: Exit with error code if output path exists
+  ([`e5c0024`](https://github.com/camlloyd/oct-to-tiff/commit/e5c0024587b8e84ece044831e33d003db07373b6))
+
+- **cli**: Limit `--size` to 12 mm
+  ([`a59dc0b`](https://github.com/camlloyd/oct-to-tiff/commit/a59dc0b34a14ca58a978f5e03473304cf63b9bb2))
+
+- **cli**: Raise error for unsupported scan patterns
+  ([`97ecc1f`](https://github.com/camlloyd/oct-to-tiff/commit/97ecc1f980f3a3f4f6dbfd0f8c03fdb3853925f2))
+
+### Chores
+
+- **pre-commit**: Bump ruff hook version
+  ([`8ed0641`](https://github.com/camlloyd/oct-to-tiff/commit/8ed0641c2d151a7af12e36247f8f477eb0ee03a1))
+
+### Continuous Integration
+
+- Add workflow for testing with pytest
+  ([`fe48f72`](https://github.com/camlloyd/oct-to-tiff/commit/fe48f72b5636fa961eb3b5ee2c6ffc2e1c892394))
+
+- Bump actions/checkout to v5
+  ([`f025880`](https://github.com/camlloyd/oct-to-tiff/commit/f02588013f2b40f6575c226f14d758013d793232))
+
+- Downgrade setup-buildx-action to v4
+  ([`1dfe3fc`](https://github.com/camlloyd/oct-to-tiff/commit/1dfe3fc507caf845e2f5ac431a330e104009686c))
+
+- **ruff**: Limit `push` to main branch
+  ([`0764eb5`](https://github.com/camlloyd/oct-to-tiff/commit/0764eb5b1d5815e4e3999863c65f7974fd824320))
+
+- **ruff**: Specify `read` level permissions
+  ([`1e22fe6`](https://github.com/camlloyd/oct-to-tiff/commit/1e22fe6f8cec995c861c677510756f1eb240d3b8))
+
+### Documentation
+
+- Update `--boundaries` help text
+  ([`4e7cf02`](https://github.com/camlloyd/oct-to-tiff/commit/4e7cf02d6f4c636cef8ff1c95851974fdf45660f))
+
+- **citation**: Update CITATION.cff
+  ([`b611e0a`](https://github.com/camlloyd/oct-to-tiff/commit/b611e0af0ab1734121e7e49cbed48419abe831b1))
+
+### Refactoring
+
+- **cli**: Prefer enum name for ROI type
+  ([`4233bf9`](https://github.com/camlloyd/oct-to-tiff/commit/4233bf9ddb9ac5906c5d484aefe6ea0f9d20d4ca))
+
+- **cli**: Replace magic numbers
+  ([`f82e09d`](https://github.com/camlloyd/oct-to-tiff/commit/f82e09dce3a9da76d1e3c40caf69653ad24d6e42))
+
+- **cli**: Simplify `input_path` type
+  ([`23e6162`](https://github.com/camlloyd/oct-to-tiff/commit/23e6162510da4a5b6a8986c8a58e38c57e7ed95d))
+
+### Testing
+
+- **cli**: Add test for `arrays_to_rois`
+  ([`05da419`](https://github.com/camlloyd/oct-to-tiff/commit/05da419e2a575157f3f8638e6b63d562f6851549))
+
+
 ## v0.6.3 (2026-03-20)
 
 ### Bug Fixes
