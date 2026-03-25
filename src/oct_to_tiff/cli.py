@@ -1,5 +1,6 @@
 import argparse
 import logging
+import sys
 from importlib.metadata import version
 from pathlib import Path
 from typing import Any
@@ -249,7 +250,7 @@ def main() -> None:
             logger.warning(f"Overwriting {output_path}")
         else:
             logger.error(f"{output_path} already exists.")
-            return
+            sys.exit(1)
 
     if args.boundaries:
         arrays = boundaries_to_arrays(input_path)
