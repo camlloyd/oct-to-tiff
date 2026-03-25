@@ -141,7 +141,7 @@ Sets the correct voxel size for scan patterns with adjustable length.
     oct-to-tiff /path/to/data --seg-curve
 
 #### `--boundaries`
-**Description**: extract segmentation lines.
+**Description**: convert segmentation lines to ImageJ ROIs.
 
 **Usage**:
 

@@ -210,7 +210,7 @@ def main() -> None:
         "--boundaries",
         default=False,
         action="store_true",
-        help="extract segmentation lines",
+        help="convert segmentation lines to ImageJ ROIs",
     )
     parser.add_argument(
         "--log-level",
