@@ -284,6 +284,10 @@ def main() -> None:
             elif len(volume) in (304 * 304 * 8, 304 * 304 * 7):
                 frames_per_data_group = 304
                 oct_window_height = 304
+            else:
+                raise ValueError(
+                    f"Could not find a supported scan pattern for volume length: {len(volume)}"
+                )
             total_data_groups = 1
             xy_scan_length = len(volume) // (frames_per_data_group * oct_window_height)
             pixel_size_x = None
