@@ -277,10 +277,10 @@ def main() -> None:
             pixel_size_z = None
         elif args.seg_curve:
             volume = np.frombuffer(f.read(), dtype=np.float32)
-            if len(volume) == 1280000 or len(volume) == 1120000:
+            if len(volume) in (400 * 400 * 8, 400 * 400 * 7):
                 frames_per_data_group = 400
                 oct_window_height = 400
-            elif len(volume) == 739328 or len(volume) == 646912:
+            elif len(volume) in (304 * 304 * 8, 304 * 304 * 7):
                 frames_per_data_group = 304
                 oct_window_height = 304
             total_data_groups = 1
