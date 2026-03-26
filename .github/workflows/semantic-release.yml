@@ -18,12 +18,12 @@ jobs:
 
     steps:
     - name: Setup | Checkout Repository on Release Branch
-      uses: actions/checkout@v5
+      uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
       with:
         fetch-depth: 0
 
     - name: Action | Semantic Version Release
       id: release
-      uses: python-semantic-release/python-semantic-release@v10.4.1
+      uses: python-semantic-release/python-semantic-release@4d4cb0ab842247caea1963132c242c62aab1e4d5 # v10.4.1
       with:
         github_token: ${{ secrets.GH_TOKEN }}
