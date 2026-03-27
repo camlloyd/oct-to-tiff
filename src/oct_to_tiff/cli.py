@@ -132,6 +132,11 @@ def boundaries_to_arrays(input_path: Path) -> list[npt.NDArray[np.int_]]:
     arrays : list[npt.NDArray[np.int_]]
         A list of 2-dimensional arrays.
 
+    Raises
+    ------
+    ValueError
+        If no root element is found in the input file.
+
     """
     tree = DET.parse(input_path)
     root = tree.getroot()
