@@ -54,9 +54,11 @@ allow_zero_version = "true"
 version_toml = ["pyproject.toml:project.version"]
 
 [tool.ruff.lint]
+preview = true
 select = [
-    "I", # isort
-    "S", # flake8-bandit
+    "DOC", # pydoclint
+    "I",   # isort
+    "S",   # flake8-bandit
 ]
 
 [tool.ruff.lint.per-file-ignores]
