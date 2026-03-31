@@ -1,6 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG PYTHON_VERSION=3.11.15
-FROM python:${PYTHON_VERSION}-slim AS base
+FROM python:3.11.15-slim@sha256:9358444059ed78e2975ada2c189f1c1a3144a5dab6f35bff8c981afb38946634 AS base
 
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
