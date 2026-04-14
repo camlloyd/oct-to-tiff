@@ -5,10 +5,10 @@ from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
-import defusedxml.ElementTree as DET
 import numpy as np
 import numpy.typing as npt
 import tifffile
+from lxml import etree
 from roifile import ROI_TYPE, ImagejRoi, roiwrite
 
 logger = logging.getLogger(__name__)
@@ -132,16 +132,9 @@ def boundaries_to_arrays(input_path: Path) -> list[npt.NDArray[np.int_]]:
     arrays : list[npt.NDArray[np.int_]]
         A list of 2-dimensional arrays.
 
-    Raises
-    ------
-    ValueError
-        If no root element is found in the input file.
-
     """
-    tree = DET.parse(input_path)
+    tree = etree.parse(input_path)
     root = tree.getroot()
-    if root is None:
-        raise ValueError(f"Could not find root element in {input_path}")
 
     array_size = int(root.findtext("./Curve_Set/Image/Curve/ARRAY", 0))
     data_points = [

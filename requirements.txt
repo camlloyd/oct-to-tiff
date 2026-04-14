@@ -1,4 +1,4 @@
-defusedxml
+lxml
 numpy
 roifile
 tifffile
