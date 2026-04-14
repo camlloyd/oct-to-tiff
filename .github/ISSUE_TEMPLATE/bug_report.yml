@@ -36,7 +36,7 @@ body:
       label: Environment
       description: |
         - oct-to-tiff version: (e.g. oct-to-tiff 0.6.2)
-        - Python version: (e.g. Python 3.11.0)
+        - Python version: (e.g. Python 3.12.13)
         - OS and version: (e.g. Windows 11 25H2, macOS Sequoia 15.7.4, 24.04.4 LTS)
     validations:
       required: true
