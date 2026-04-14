@@ -150,7 +150,3 @@ Sets the correct voxel size for scan patterns with adjustable length.
 ## Contributing
 
 This project uses [Ruff](https://github.com/astral-sh/ruff) for linting and formatting.
-
-## Requirements
-
-Requires Python 3.11 or higher.
