@@ -24,6 +24,7 @@ def test_arrays_to_rois_returns_freeline_rois_from_arrays(tmp_path: Path) -> Non
 
     # Assert
     result = roiread(output_path)
+    assert isinstance(result, list)
     assert len(result) == 2
     for roi in result:
         assert roi.roitype == ROI_TYPE.FREELINE
