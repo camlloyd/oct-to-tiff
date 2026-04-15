@@ -12,4 +12,9 @@ repos:
   rev: v1.19.1
   hooks:
     - id: mypy
-      args: [--strict, --ignore-missing-imports]
+      args: [--strict]
+      additional_dependencies:
+        - lxml-stubs
+        - numpy
+        - roifile
+        - tifffile
