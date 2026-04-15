@@ -6,7 +6,7 @@ build-backend = "uv_build"
 name = "oct-to-tiff"
 version = "0.6.4"
 dependencies = [
-    "defusedxml",
+    "lxml",
     "numpy",
     "roifile",
     "tifffile",
@@ -33,12 +33,12 @@ classifiers = [
 
 [project.optional-dependencies]
 dev = [
+    "lxml-stubs",
     "mypy",
     "prek",
     "pytest",
     "pytest-cov",
     "ruff",
-    "types-defusedxml"
 ]
 
 [project.urls]
