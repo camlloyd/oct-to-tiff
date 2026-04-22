@@ -1,4 +1,4 @@
-lxml==6.0.4
+lxml==6.1.0
 numpy==2.4.4
 roifile==2026.2.10
 tifffile==2026.4.11
