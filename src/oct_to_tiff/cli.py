@@ -316,6 +316,12 @@ def main() -> None:
             volume_main = volume[:101]
             volume_align = volume[101:frames_per_data_group]
             align_path = dir_name / (file_name + "_Align.ome.tif")
+            if Path.is_file(align_path):
+                if args.overwrite:
+                    logger.warning(f"Overwriting {align_path}")
+                else:
+                    logger.error(f"{align_path} already exists.")
+                    sys.exit(1)
             pixel_size_x_align = 0.003899
             pixel_size_y_align = 0.003071
             pixel_size_z_align = 0.040000
