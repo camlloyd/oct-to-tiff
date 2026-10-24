@@ -2,6 +2,80 @@
 
 <!-- version list -->
 
+## v0.6.5 (2026-10-24)
+
+### Bug Fixes
+
+- **cli**: Respect --overwrite for 3D Cornea Align scans
+  ([`0586008`](https://github.com/camlloyd/oct-to-tiff/commit/05860084437f76e40c219c535afe0317c22fbfc0))
+
+### Build System
+
+- **docker**: Bump lxml version to 6.1.0
+  ([`44aa5bd`](https://github.com/camlloyd/oct-to-tiff/commit/44aa5bd2cf5af5f3e0d17880c6467aa349a2a378))
+
+- **docker**: Pin dependencies
+  ([`c3ac66d`](https://github.com/camlloyd/oct-to-tiff/commit/c3ac66d835270ff3369dde20dec250f7450b75a6))
+
+- **docker**: Pin image to SHA
+  ([`45d330d`](https://github.com/camlloyd/oct-to-tiff/commit/45d330dafbea9c9a5f113748c2dc6d9be0503c2d))
+
+- **pyproject**: Bump uv build version
+  ([`e8cf285`](https://github.com/camlloyd/oct-to-tiff/commit/e8cf285d6ff458241a311efec20e6206c235e67b))
+
+- **pyproject**: Bump uv build version
+  ([`5a4926b`](https://github.com/camlloyd/oct-to-tiff/commit/5a4926b81728aefb92392e25a6dcf28c92b73e60))
+
+- **python**: Drop python 3.11 support
+  ([`91ebcf6`](https://github.com/camlloyd/oct-to-tiff/commit/91ebcf6805061a2a53aecb350c0ba5711ff614dc))
+
+### Chores
+
+- **pre-commit**: Add mypy dependencies
+  ([`6ff6919`](https://github.com/camlloyd/oct-to-tiff/commit/6ff69193f4b02b96088bda53bec634684bf07cbb))
+
+- **pre-commit**: Add pydoclint rules to Ruff
+  ([`a81d7d2`](https://github.com/camlloyd/oct-to-tiff/commit/a81d7d2db5a0386b3d09eb65d75eeee619d71875))
+
+### Continuous Integration
+
+- Pin actions to SHAs
+  ([`8cb2bce`](https://github.com/camlloyd/oct-to-tiff/commit/8cb2bce7e879e71377fc088031eae549dbefce2a))
+
+- **docker**: Specify `read` level permissions
+  ([`f406132`](https://github.com/camlloyd/oct-to-tiff/commit/f406132d60fd71952da6eaa26674667ed0788ff6))
+
+- **workflows**: Bump actions/checkout to v6.0.2
+  ([`40bde3c`](https://github.com/camlloyd/oct-to-tiff/commit/40bde3ce4c8a3386395323eae88be2f63a7ee265))
+
+- **workflows**: Bump astral-sh/ruff-action to v4.0.0
+  ([`9b95f1d`](https://github.com/camlloyd/oct-to-tiff/commit/9b95f1d2676e55841c32718e6f8b8899b3bdb052))
+
+- **workflows**: Set persist-credentials to false on checkout
+  ([`2166dc6`](https://github.com/camlloyd/oct-to-tiff/commit/2166dc6860c9cdde2cc4d1ef7a55065012fbdf07))
+
+### Documentation
+
+- **citation**: Update CITATION.cff
+  ([`fb2903f`](https://github.com/camlloyd/oct-to-tiff/commit/fb2903f0dc976e19fe2b8219b879d9a2589289bf))
+
+- **cli**: Update `boundaries_to_arrays` docstring
+  ([`01f69d5`](https://github.com/camlloyd/oct-to-tiff/commit/01f69d5981a3f0e48a93e48b2e44a54b0c58e9cb))
+
+- **readme**: Remove requirements section
+  ([`943148d`](https://github.com/camlloyd/oct-to-tiff/commit/943148da3707dc278a0aac882d8b0a744a241ac4))
+
+### Refactoring
+
+- **xml**: Replace defusedxml with lxml
+  ([`aa9d0ad`](https://github.com/camlloyd/oct-to-tiff/commit/aa9d0ad265e574c75d36e8d45c9897f12b932ca9))
+
+### Testing
+
+- **cli**: Assert `roiread` returns `list`
+  ([`869a4da`](https://github.com/camlloyd/oct-to-tiff/commit/869a4da221055833e8cb7634f060c9fd06c3a990))
+
+
 ## v0.6.4 (2026-03-25)
 
 ### Bug Fixes
